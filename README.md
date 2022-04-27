@@ -16,3 +16,5 @@ The simulation output of iVerilog can be taken as a value change dump ('.vcd') f
 [GTKWave](http://gtkwave.sourceforge.net/) is an open source tool for visualizing the signal dumps in .vcd/.lxt formats.  
 
 ![Simulation](assets/simulation.png)
+
+![GTKWave-View](assets/gtkwave_view-iVerilog.drawio.png)
