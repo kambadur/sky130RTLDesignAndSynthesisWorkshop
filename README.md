@@ -15,3 +15,4 @@ A test bench file specifies stimulus to the input ports of the RTL design. This 
 The simulation output of iVerilog can be taken as a value change dump ('.vcd') file that could then be visualized in GTKWave.  
 [GTKWave](http://gtkwave.sourceforge.net/) is an open source tool for visualizing the signal dumps in .vcd/.lxt formats.  
 
+![Simulation](assets/simulation.png)
