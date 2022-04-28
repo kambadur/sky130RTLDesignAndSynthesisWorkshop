@@ -48,7 +48,7 @@ Post-processing in GTKWave:
 ![](assets/gtkwave_view-iVerilog.drawio.png)
 
 ### 2.1.1. Simulation results
-The workshop provided example RTL design for 1-bit two input mux and it's corresponding test bench file. The design is simulated in iVerilog and the signals are visualised in GTKWave.  
+The workshop provided example RTL design for 1-bit two input mux ('good_mux.v') and it's corresponding test bench file. The design is simulated in iVerilog and the signals are visualised in GTKWave.  
 
 ![](assets/iverilog_gtkwave_lab.png)
 
@@ -67,19 +67,21 @@ read_verilog: This command loads modules from a Verilog file to the current desi
 
 #### 2.2.1.2. Generic synthesis
 synth[options]: This command runs the default synthesis script. This command does not operate on partly selected designs[].  
-    -top <module>: use the specified module as top module (default='top')  
+&emsp;-top <module>: use the specified module as top module (default='top')  
+![](assets/synth_command.png)  
 ![](assets/synth.png)
 
 #### 2.2.1.3. Read Sky130 liberty
 read_liberty[options]: This command reads cells from liberty file as modules into current design[].  
-    -lib: only create empty blackbox modules  
+&emsp;-lib: only create empty blackbox modules  
 ![](assets/read_liberty.png)
 
 #### 2.2.1.4. Generate netlist
 abc[options]: This pass uses the ABC tool [1] for technology mapping of yosys's internal gate library to a target architecture[].  
-    -liberty <file>: generate netlists for the specified cell library (using the liberty file format).  
-    In our case 'sky130_fd_sc_hd__tt_025C_1v80.lib'.  
+&emsp;-liberty <file>: generate netlists for the specified cell library (using the liberty file format).  
+&emsp;In our case 'sky130_fd_sc_hd__tt_025C_1v80.lib'.  
 *Note: When no target cell library is specified the Yosys standard cell library is loaded into ABC before the ABC script is executed.*  
+![](assets/abc_command.png)  
 ![](assets/abc_liberty.png)
 
 #### 2.2.1.5. Show
