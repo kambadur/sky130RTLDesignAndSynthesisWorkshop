@@ -1,22 +1,20 @@
-# RTL design using Verilog with SKY130 Technology
+# RTL design using Verilog with SKY130 Technology<!-- omit in toc -->
 ![](assets/Verilog_flyer.png)
 
+- [1. Introduction](#1-introduction)
+- [2. Day 1 - Introduction to Verilog RTL design and Synthesis](#2-day-1---introduction-to-verilog-rtl-design-and-synthesis)
+  - [2.1. Introduction to Simulation](#21-introduction-to-simulation)
+    - [2.1.1. Simulation results](#211-simulation-results)
+  - [2.2. Introduction to Synthesis](#22-introduction-to-synthesis)
+    - [2.2.1. Some Yosys commands to synthesize an RTL design and generate netlist](#221-some-yosys-commands-to-synthesize-an-rtl-design-and-generate-netlist)
+    - [2.2.2. Synthesis results for good_mux.v](#222-synthesis-results-for-good_muxv)
 
-- [RTL design using Verilog with SKY130 Technology](#rtl-design-using-verilog-with-sky130-technology) <!-- no toc -->
-- [Introduction](#introduction)
-- [Day 1 - Introduction to Verilog RTL design and Synthesis](#day-1---introduction-to-verilog-rtl-design-and-synthesis)
-  - [Introduction to Simulation](#introduction-to-simulation)
-    - [Simulation results](#simulation-results)
-  - [Introduction to Synthesis](#introduction-to-synthesis)
-    - [Some Yosys commands to synthesize an RTL design and generate netlist](#some-yosys-commands-to-synthesize-an-rtl-design-and-generate-netlist)
-    - [Synthesis results for good_mux.v](#synthesis-results-for-good_muxv)
-
-# Introduction
+# 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys and Sky130 PDKs.  
 This report is written as a part of final submission to summarize the 5-day journey through the workshop.
 
-# Day 1 - Introduction to Verilog RTL design and Synthesis
-## Introduction to Simulation
+# 2. Day 1 - Introduction to Verilog RTL design and Synthesis
+## 2.1. Introduction to Simulation
 **RTL design**: Register Transfer Level (RTL) is representation of a digital circuit at an abstract level. This abstract realization of a specification is achieved using HDLs like Verilog, VHDL etc in simple text form. Before the invention of RTL, digital engineers used to specify their desgins as schematic entry which could be tedious and error prone.  
 
 **Simulation**: RTL design is checked for adherence to its specification using simulation. This helps finding and fixing bugs in the RTL design in the early stages of design development. iVerilog gives the framework to achieve this.
@@ -42,19 +40,19 @@ Post-processing in GTKWave:
 
 ![](assets/gtkwave_view-iVerilog.drawio.png)
 
-### Simulation results
+### 2.1.1. Simulation results
 The workshop provided example RTL design for 1-bit two input mux and it's corresponding test bench file. The design is simulated in iVerilog and the signals are visualised in GTKWave.  
 
 ![](assets/iverilog_gtkwave_lab.png)
 
-## Introduction to Synthesis
+## 2.2. Introduction to Synthesis
 **Synthesis**: The RTL design description is translated into gate-level description by a synthesis tool. Very popular Open source synthesis tool [Yosys](http://bygone.clairexen.net/yosys/) is used for synthesis.  
 The synthesis tool takes the RTL desgin and the cell library (liberty file) as inputs and translates the RTL into netlist.
 Hence the netlist is the gate-level representation of the specifiec logic desgin via Verilog HDL in RTL.  
 
 ![](assets/synthesis.drawio.png)
 
-### Some Yosys commands to synthesize an RTL design and generate netlist
+### 2.2.1. Some Yosys commands to synthesize an RTL design and generate netlist
     # read rtl design 
     read_verilog good_mux.v
 
@@ -69,5 +67,5 @@ Hence the netlist is the gate-level representation of the specifiec logic desgin
 
 **netlist is the translation of RTL design to gate-level design using the standard cells specified in the liberty file.**  
 
-### Synthesis results for good_mux.v
+### 2.2.2. Synthesis results for good_mux.v
 ![](assets/synthesis_lab.png)
