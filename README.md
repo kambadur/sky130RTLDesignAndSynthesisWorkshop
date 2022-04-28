@@ -1,8 +1,9 @@
 # RTL design using Verilog with SKY130 Technology
 ![](assets/Verilog_flyer.png)
 
-- [RTL design using Verilog with SKY130 Technology](#rtl-design-using-verilog-with-sky130-technology)
-- [Overview](#overview)
+
+- [RTL design using Verilog with SKY130 Technology](#rtl-design-using-verilog-with-sky130-technology) <!-- no toc -->
+- [Introduction](#introduction)
 - [Day 1 - Introduction to Verilog RTL design and Synthesis](#day-1---introduction-to-verilog-rtl-design-and-synthesis)
   - [Introduction to Simulation](#introduction-to-simulation)
     - [Simulation results](#simulation-results)
@@ -10,7 +11,7 @@
     - [Some Yosys commands to synthesize an RTL design and generate netlist](#some-yosys-commands-to-synthesize-an-rtl-design-and-generate-netlist)
     - [Synthesis results for good_mux.v](#synthesis-results-for-good_muxv)
 
-# Overview
+# Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys and Sky130 PDKs.  
 This report is written as a part of final submission to summarize the 5-day journey through the workshop.
 
