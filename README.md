@@ -8,8 +8,12 @@ Table of Contents
   - [2.1. Introduction to Simulation](#21-introduction-to-simulation)
     - [2.1.1. Simulation results](#211-simulation-results)
   - [2.2. Introduction to Synthesis](#22-introduction-to-synthesis)
-    - [2.2.1. Some Yosys commands to synthesize an RTL design and generate netlist](#221-some-yosys-commands-to-synthesize-an-rtl-design-and-generate-netlist)
-    - [2.2.2. Synthesis results for good_mux.v](#222-synthesis-results-for-good_muxv)
+    - [2.2.1. Yosys synthesis flow](#221-yosys-synthesis-flow)
+      - [2.2.1.1. Read RTL design](#2211-read-rtl-design)
+      - [2.2.1.2. Generic synthesis](#2212-generic-synthesis)
+      - [2.2.1.3. Read Sky130 liberty](#2213-read-sky130-liberty)
+      - [2.2.1.4. Generate netlist](#2214-generate-netlist)
+      - [2.2.1.5. Show](#2215-show)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys and Sky130 technology.  
@@ -55,7 +59,35 @@ Hence the netlist is the gate-level representation of the specifiec logic desgin
 
 ![](assets/synthesis.drawio.png)
 
-### 2.2.1. Some Yosys commands to synthesize an RTL design and generate netlist
+### 2.2.1. Yosys synthesis flow
+
+#### 2.2.1.1. Read RTL design
+read_verilog: This command loads modules from a Verilog file to the current design[].  
+![](assets/read_verilog.png)
+
+#### 2.2.1.2. Generic synthesis
+synth[options]: This command runs the default synthesis script. This command does not operate on partly selected designs[].  
+    -top <module>: use the specified module as top module (default='top')  
+![](assets/synth.png)
+
+#### 2.2.1.3. Read Sky130 liberty
+read_liberty[options]: This command reads cells from liberty file as modules into current design[].  
+    -lib: only create empty blackbox modules  
+![](assets/read_liberty.png)
+
+#### 2.2.1.4. Generate netlist
+abc[options]: This pass uses the ABC tool [1] for technology mapping of yosys's internal gate library to a target architecture[].  
+    -liberty <file>: generate netlists for the specified cell library (using the liberty file format).  
+    In our case 'sky130_fd_sc_hd__tt_025C_1v80.lib'.  
+*Note: When no target cell library is specified the Yosys standard cell library is loaded into ABC before the ABC script is executed.*  
+![](assets/abc_liberty.png)
+
+#### 2.2.1.5. Show
+Create a graphviz DOT file for the selected part of the design and compile it to a graphics file (usually SVG or PostScript)[].  
+![](assets/show.png)
+
+
+Note: Some Yosys commands
     # read rtl design 
     read_verilog good_mux.v
 
@@ -69,6 +101,3 @@ Hence the netlist is the gate-level representation of the specifiec logic desgin
     abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
 
 **netlist is the translation of RTL design to gate-level design using the standard cells specified in the liberty file.**  
-
-### 2.2.2. Synthesis results for good_mux.v
-![](assets/synthesis_lab.png)
