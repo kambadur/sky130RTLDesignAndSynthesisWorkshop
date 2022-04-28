@@ -12,7 +12,7 @@ Table of Contents
     - [2.2.2. Synthesis results for good_mux.v](#222-synthesis-results-for-good_muxv)
 
 # 1. Introduction
-This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys and Sky130 PDKs.  
+This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys and Sky130 technology.  
 This report is written as a part of final submission to summarize the 5-day journey through the workshop.
 
 # 2. Day 1 - Introduction to Verilog RTL design and Synthesis
