@@ -14,6 +14,9 @@ Table of Contents
       - [2.2.1.3. Read Sky130 liberty](#2213-read-sky130-liberty)
       - [2.2.1.4. Generate netlist](#2214-generate-netlist)
       - [2.2.1.5. Show](#2215-show)
+- [Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles](#day-2---timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
+  - [Sky130 Process Node](#sky130-process-node)
+  - [Introduction to standard cell library](#introduction-to-standard-cell-library)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys and Sky130 technology.  
@@ -87,6 +90,13 @@ abc[options]: This pass uses the ABC tool [1] for technology mapping of yosys's 
 #### 2.2.1.5. Show
 Create a graphviz DOT file for the selected part of the design and compile it to a graphics file (usually SVG or PostScript)[].  
 ![](assets/show.png)
+
+# Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles
+## Sky130 Process Node
+The SKY130 is a mature 180nm-130nm hybrid technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone![source: https://github.com/google/skywater-pdk]  
+## Introduction to standard cell library
+As a part of SkyWater Open Source PDK, [multiple](https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html) standard digital cell libraries are provided that cover a range of different use cases[source: https://github.com/google/skywater-pdk].  
+In this workshop we will be using sky130_fd_sc_hd (high density) standard cell library to map our synthesized design with.  
 
 
 Note: Some Yosys commands
