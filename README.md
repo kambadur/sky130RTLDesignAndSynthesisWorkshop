@@ -39,10 +39,24 @@ The workshop provided example RTL design for 1-bit two input mux and it's corres
 
 ## Introduction to Synthesis
 **Synthesis**: The RTL design description is translated into gate-level description by a synthesis tool. Very popular Open source synthesis tool [Yosys](http://bygone.clairexen.net/yosys/) is used for synthesis.  
-The synthesis tool takes the RTL desgin and the cell library (as liberty file) as inputs and translates the RTL into netlist.
-Hence the netlist is the gate-level representation of the specifiec ligic desgin via Verilog HDL in RTL.  
+The synthesis tool takes the RTL desgin and the cell library (liberty file) as inputs and translates the RTL into netlist.
+Hence the netlist is the gate-level representation of the specifiec logic desgin via Verilog HDL in RTL.  
 
 ![](assets/synthesis.drawio.png)
+
+### Some Yosys commands to synthesize and generate netlist
+    # read design 
+    read_verilog good_mux.v
+
+    # generic synthesis
+    synth -top good_mux
+
+    # read cell library
+    read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+    # generate netlist
+    abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+
 
 read_verilog:
 read_liberty:
