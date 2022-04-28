@@ -6,7 +6,7 @@ This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open sou
 This report is written as a part of final submission to summarize the 5-day journey through the workshop.
 
 # Day 1 - Introduction to Verilog RTL design and Synthesis
-## Introduction to open source simulator iVerilog
+## Introduction to Simulation
 **RTL design**: Register Transfer Level (RTL) is representation of a digital circuit at an abstract level. This abstract realization of a specification is achieved using HDLs like Verilog, VHDL etc in simple text form. Before the invention of RTL, digital engineers used to specify their desgins as schematic entry which could be tedious and error prone.  
 
 **Simulation**: RTL design is checked for adherence to its specification using simulation. This helps finding and fixing bugs in the RTL design in the early stages of design development. iVerilog gives the framework to achieve this.
@@ -36,3 +36,15 @@ Post-processing in GTKWave:
 The workshop provided example RTL design for 1-bit two input mux and it's corresponding test bench file. The design is simulated in iVerilog and the signals are visualised in GTKWave.  
 
 ![](assets/iverilog_gtkwave_lab.png)
+
+## Introduction to Synthesis
+**Synthesis**: The RTL design description is translated into gate-level description by a synthesis tool. Very popular Open source synthesis tool [Yosys](http://bygone.clairexen.net/yosys/) is used for synthesis.  
+The synthesis tool takes the RTL desgin and the cell library (as liberty file) as inputs and translates the RTL into netlist.
+Hence the netlist is the gate-level representation of the specifiec ligic desgin via Verilog HDL in RTL.  
+
+![](assets/synthesis.drawio.png)
+
+read_verilog:
+read_liberty:
+write_verilog:
+netlist is the representation/translation of the origial RTL design in standard cells specified in the liberty file.
