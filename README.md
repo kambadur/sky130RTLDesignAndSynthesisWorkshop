@@ -32,7 +32,7 @@ Post-processing in GTKWave:
 
 ![](assets/gtkwave_view-iVerilog.drawio.png)
 
-### Simulation result
+### Simulation results
 The workshop provided example RTL design for 1-bit two input mux and it's corresponding test bench file. The design is simulated in iVerilog and the signals are visualised in GTKWave.  
 
 ![](assets/iverilog_gtkwave_lab.png)
@@ -44,21 +44,20 @@ Hence the netlist is the gate-level representation of the specifiec logic desgin
 
 ![](assets/synthesis.drawio.png)
 
-### Some Yosys commands to synthesize and generate netlist
-    # read design 
+### Some Yosys commands to synthesize an RTL design and generate netlist
+    # read rtl design 
     read_verilog good_mux.v
 
     # generic synthesis
     synth -top good_mux
 
-    # read cell library
+    # read sky130 cell library
     read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 
-    # generate netlist
+    # generate netlist using sky130 cell library
     abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
 
+**netlist is the translation of RTL design to gate-level design using the standard cells specified in the liberty file.**  
 
-read_verilog:
-read_liberty:
-write_verilog:
-netlist is the representation/translation of the origial RTL design in standard cells specified in the liberty file.
+### Synthesis results
+![](assets/synthesis_lab.png)
