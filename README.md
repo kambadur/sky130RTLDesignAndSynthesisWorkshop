@@ -180,9 +180,9 @@ first. [source: [Yosys manual](https://raw.githubusercontent.com/wiki/jospicant/
 
 Let us try to understand this with an example RTL design- 'dff_asyncres.v'.  
 Let us run synth -top on the design and take a look how it looks. We can see that it just represet a d-flip flop.  
-![](assets/dff_asyncres_snyth.png)
+![](assets/dff_asyncres_snyth.png)  
 Let us run dfflibmap -liberty pass on this design and see how it looks. dfflibmap mapped a variant of d-flip flop to our design and this led to an additional inverter in the design.  
-![](assets/dff_asyncres_dfflibmap_alone.png)
+![](assets/dff_asyncres_dfflibmap_alone.png)  
 Now abc -liberty pass has to be run to complete the mapping of combination logic (the inverter cell). This comepletes the mapping.  
 ![](assets/dfflibmap_abc_both.png)  
 
