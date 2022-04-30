@@ -229,7 +229,7 @@ A very nice example for constant propogation optimization is shown [here](https:
 ### 4.1.2. Boolean logic optimization
 
 ### 4.1.3. Sequential Constant propogation
-The below sequential circuit discussed in the lectures, is a nice example where the synthesis tool gets to optomize it out. As the d-input is always 1'b0, irrespective of there the Reset line is asserted or not, the output of the flip-flop always remains 0. This simplifying the circuit ot the boolean expression,
+The below sequential circuit discussed in the lectures, is a nice example where the synthesis tool gets to optomize it out. As the d-input is always 1'b0, irrespective of whether the Reset line is asserted or not, the output of the flip-flop always remains 0. This simplifying the circuit ot the boolean expression,
     (~(A.0)) => (~A)+(~0) => ~A+1 => 1    
 Hence the whole logic gets to be replaced by a contant 1.  
 ![](assets/dff.png)  
