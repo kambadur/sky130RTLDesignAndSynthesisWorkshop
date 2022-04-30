@@ -124,6 +124,21 @@ Details of the realized standard sky130 cells in this design can be found from S
 [Input isolation, noninverted sleep](https://antmicro-skywater-pdk-docs.readthedocs.io/en/test-submodules-in-rtd/contents/libraries/sky130_fd_sc_hd/cells/lpflow_inputiso1p/README.html)  
 
 ### 3.2.2. Flat synthesis
+yosys command flatten :"This pass flattens the design by replacing cells by their implementation. This pass is very similar to the 'techmap' pass. The only difference is that this pass is using the current design as mapping library.  
+Cells and/or modules with the 'keep_hierarchy' attribute set will not be flattened by this command." [source: http://yosyshq.net/yosys/cmd_flatten.html]  
+
+As the name suggestes this pass flattens out the design and hence the hierarchy is lost.  
+Let us observe the impact of 'flatten' on systhesized output of same RTL design- multiple_modules.v.  
+![flatten](asstes/../assets/yosys_flatten.png)  
+
+We can see that the submodules were deleted and hierarchy is no longer preserved.  
+Please pay attantion to the interesting netlist generated.  
+![](assets/yosys_flatten_multiple_modules.png)  
+
+Graphical view flattened netlist is hown below.  
+![](assets/flat_multiple_modules_show.png)  
+ 
+
 
 
 Note: Some Yosys commands
