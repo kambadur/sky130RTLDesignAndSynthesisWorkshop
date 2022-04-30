@@ -170,6 +170,21 @@ abc tool maps only the combinational logic cells from the liberty. It doesn't lo
 If the RTL design has sequential logic, dfflibmap pass has to be executed before abc pass. dfflibmap pass looks for the register cells in the Liberty and maps to the sequential logic from the synthesis. And then abc pass has to used to complete the mepping for combinatorial logic.  
 ![](assets/dfflibmap.png)  
 ![](assets/dfflibmap_abc_liberty.png)  
+Without dfflibmap pass if abc pass is executed, and if the design has only registers, abc has nothing to map and warns like below.  
+![](assets/no_dfflibmap_abc.png)  
+First the register cells must be mapped to the registers that are available on the target architectures. The 
+target architecture might not provide all variations of d-type flip-flops with positive and negative clock
+edge, high-active and low-active asynchronous set and/or reset, etc. Therefore the process of mapping the
+registers might add additional inverters to the design and thus it is important to map the register cells
+first. [source: [Yosys manual](https://raw.githubusercontent.com/wiki/jospicant/IceStudio/yosys_manual.pdf)]  
+
+Let us try to understand this with an example RTL design- 'dff_asyncres.v'.  
+Let us run synth -top on the design and take a look how it looks. We can see that it just represet a d-flip flop.  
+![](assets/dff_asyncres_snyth.png)
+Let us run dfflibmap -liberty pass on this design and see how it looks. dfflibmap mapped a variant of d-flip flop to our design and this led to an additional inverter in the design.  
+![](assets/dff_asyncres_dfflibmap_alone.png)
+Now abc -liberty pass has to be run to complete the mapping of combination logic (the inverter cell). This comepletes the mapping.  
+![](assets/dfflibmap_abc_both.png)  
 
 ### 3.3.1. Optimizations
 By this time we have already noticed that our behavioural description (RTL design) goes through optimizations. As an example from our previously discussed design- multiple_modules.v, the sub_module2 which synthesized to be an OR gate but ended up being somethig diffrent. It has been mapped to a cell- 'sky130_fd_sc_hd__lpflow_inputiso1p_1' by Yosys from the Liberty. These optimizations are performed by the synthesis tool minimizing area, power consumption etc. in perspective.  
