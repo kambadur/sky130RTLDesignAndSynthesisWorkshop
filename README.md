@@ -15,8 +15,12 @@ Table of Contents
       - [2.2.1.4. Generate netlist](#2214-generate-netlist)
       - [2.2.1.5. Show](#2215-show)
 - [3. Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles](#3-day-2---timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
-  - [3.1. Sky130 Process Node](#31-sky130-process-node)
-  - [3.2. Introduction to standard cell library](#32-introduction-to-standard-cell-library)
+  - [3.1. Timing libs](#31-timing-libs)
+    - [3.1.1. Sky130 Process Node](#311-sky130-process-node)
+    - [3.1.2. Introduction to standard cell library](#312-introduction-to-standard-cell-library)
+  - [3.2. Hierarchial synthesis vs Flat synthesis](#32-hierarchial-synthesis-vs-flat-synthesis)
+    - [3.2.1. Hierarchial synthesis](#321-hierarchial-synthesis)
+    - [3.2.2. Flat synthesis](#322-flat-synthesis)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -92,11 +96,34 @@ Create a graphviz DOT file for the selected part of the design and compile it to
 ![](assets/show.png)
 
 # 3. Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles
-## 3.1. Sky130 Process Node
+## 3.1. Timing libs
+### 3.1.1. Sky130 Process Node
 The SKY130 is a mature 180nm-130nm hybrid technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone! [source: https://github.com/google/skywater-pdk]  
-## 3.2. Introduction to standard cell library
+### 3.1.2. Introduction to standard cell library
 As a part of SkyWater Open Source PDK, [multiple](https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html) standard digital cell libraries are provided that cover a range of different use cases [source: https://github.com/google/skywater-pdk].  
 In this workshop we will be using sky130_fd_sc_hd (high density) standard cell library to map our synthesized design with.  
+
+## 3.2. Hierarchial synthesis vs Flat synthesis
+### 3.2.1. Hierarchial synthesis
+In hierarchial synthesis the hierarchy of the RTL design is preserved through the final netlist. Let us look at the below RTL design where we have two sub modules, both instantiated by a top modules.  
+![](assets/rtl_multiple_modules.png)
+
+Generic synthesis preserves the hierarchy. It can also be seen that the cells are not mapped to sky130 specific technology yet.  
+![](assets/synth_multipl_modules_hier.png)
+
+abc tool maps the technology to Sky130 and generates the netlist. It can be seen that the hierarchy is still preserved.  
+![](assets/synth_abc_sky130_hier.png)
+
+It is quite interesting to see how tool itself goes through optimization. RTL mutiple modules.v when synthesized with two different versions of yosys- 07 and 0.9 versions.  
+The optimization at the technology mapping of sub_modules2.  
+Also quite intesting how yosys decided on two different flavors of and2 for sub_module1 in these versions.    
+![](assets/yosys_versions.png)
+
+Details of the realized standard sky130 cells in this design can be found from Skywater PDK documentation.  
+[2-input AND](https://antmicro-skywater-pdk-docs.readthedocs.io/en/test-submodules-in-rtd/contents/libraries/sky130_fd_sc_hd/cells/and2/README.html)  
+[Input isolation, noninverted sleep](https://antmicro-skywater-pdk-docs.readthedocs.io/en/test-submodules-in-rtd/contents/libraries/sky130_fd_sc_hd/cells/lpflow_inputiso1p/README.html)  
+
+### 3.2.2. Flat synthesis
 
 
 Note: Some Yosys commands
