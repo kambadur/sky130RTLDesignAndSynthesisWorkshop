@@ -23,6 +23,7 @@ Table of Contents
     - [3.2.2. Selective sub-module level synthesis](#322-selective-sub-module-level-synthesis)
     - [3.2.3. Flat synthesis](#323-flat-synthesis)
   - [3.3. Various Flop coding styles and optimization](#33-various-flop-coding-styles-and-optimization)
+    - [3.3.1. Optimizations](#331-optimizations)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -164,11 +165,17 @@ Please pay attantion to the interesting netlist generated.
 Graphical view of flattened netlist is hown below.  
 ![](assets/flat_multiple_modules_show.png)  
 
+Flat synthesis can as well be performed on sub modules of a top level design. In the below example, we will perform flat synthesis on sub_module2 and 
+
 ## 3.3. Various Flop coding styles and optimization
 abc tool maps only the combinational logic cells from the liberty. It doesn't look for the register cells.  
 If the RTL design has sequential logic, dfflibmap pass has to be executed before abc pass. dfflibmap pass looks for the register cells in the Liberty and maps to the sequential logic from the synthesis. And then abc pass has to used to complete the mepping for combinatorial logic.  
 ![](assets/dfflibmap.png)  
 ![](assets/dfflibmap_abc_liberty.png)  
+
+### 3.3.1. Optimizations
+By this time we have already noticed that our behavioural description (RTL design) goes through certain optimizations. As an example from our previousls discussed design multiple_modules.v, the sub_module2 which synthesized to be an OR gate but ended up being somethig diffrent. It has been mapped to a cell- 'sky130_fd_sc_hd__lpflow_inputiso1p_1'. These optimizations are performed by the synthesis tool minimizing area, power consumption etc. in perspective.  
+![](assets/optimization_muliple_modules_1.png)  
 
 
 Note: Some Yosys commands
