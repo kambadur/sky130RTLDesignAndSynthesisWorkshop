@@ -20,7 +20,8 @@ Table of Contents
     - [3.1.2. Introduction to standard cell library](#312-introduction-to-standard-cell-library)
   - [3.2. Hierarchial synthesis vs Flat synthesis](#32-hierarchial-synthesis-vs-flat-synthesis)
     - [3.2.1. Hierarchial synthesis](#321-hierarchial-synthesis)
-    - [3.2.2. Flat synthesis](#322-flat-synthesis)
+    - [3.2.2. Selective sub-module level synthesis](#322-selective-sub-module-level-synthesis)
+    - [3.2.3. Flat synthesis](#323-flat-synthesis)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -123,7 +124,19 @@ Details of the realized standard sky130 cells in this design can be found from S
 [2-input AND](https://antmicro-skywater-pdk-docs.readthedocs.io/en/test-submodules-in-rtd/contents/libraries/sky130_fd_sc_hd/cells/and2/README.html)  
 [Input isolation, noninverted sleep](https://antmicro-skywater-pdk-docs.readthedocs.io/en/test-submodules-in-rtd/contents/libraries/sky130_fd_sc_hd/cells/lpflow_inputiso1p/README.html)  
 
-### 3.2.2. Flat synthesis
+### 3.2.2. Selective sub-module level synthesis
+Just like synthesizing an RTL design at the top mudule level, it can be synthesized at the sub-module level as well. This level of freedom brings the below advantsges.  
+* &emsp;  Multiple instantions: In case of having multiple instantiations in our design, this feature helps to synthesize just one instance and use it iteratively throughout the top level.    
+* &emsp;  Massive desgins: In case of massive design, sub-module level synthesis reduces the burden on sythesis tool in-terms of performance and time.  
+ 
+We can take a look at the same example of multiple_modules.v.  Let us synthesize only sub_module1 and see how the final netlist appears.  
+We can see that the synth command just looks at the specified sub_module1 alone and sub_module2 is ommitted from synthesis.  
+![](assets/synth_submodule1.png)  
+
+The generated synthesis output this time gives only the AND gate for the sub_module1 rtl.  
+![](assets/synth_submodule1_out.png)  
+
+### 3.2.3. Flat synthesis
 yosys command flatten :"This pass flattens the design by replacing cells by their implementation. This pass is very similar to the 'techmap' pass. The only difference is that this pass is using the current design as mapping library.  
 Cells and/or modules with the 'keep_hierarchy' attribute set will not be flattened by this command." [source: http://yosyshq.net/yosys/cmd_flatten.html]  
 
@@ -135,9 +148,9 @@ We can see that the submodules were deleted and hierarchy is no longer preserved
 Please pay attantion to the interesting netlist generated.  
 ![](assets/yosys_flatten_multiple_modules.png)  
 
-Graphical view flattened netlist is hown below.  
+Graphical view of flattened netlist is hown below.  
 ![](assets/flat_multiple_modules_show.png)  
- 
+
 
 
 
