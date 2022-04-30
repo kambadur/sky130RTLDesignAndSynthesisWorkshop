@@ -165,8 +165,6 @@ Please pay attantion to the interesting netlist generated.
 Graphical view of flattened netlist is hown below.  
 ![](assets/flat_multiple_modules_show.png)  
 
-Flat synthesis can as well be performed on sub modules of a top level design. In the below example, we will perform flat synthesis on sub_module2 and 
-
 ## 3.3. Various Flop coding styles and optimization
 abc tool maps only the combinational logic cells from the liberty. It doesn't look for the register cells.  
 If the RTL design has sequential logic, dfflibmap pass has to be executed before abc pass. dfflibmap pass looks for the register cells in the Liberty and maps to the sequential logic from the synthesis. And then abc pass has to used to complete the mepping for combinatorial logic.  
