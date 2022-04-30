@@ -174,21 +174,5 @@ If the RTL design has sequential logic, dfflibmap pass has to be executed before
 ![](assets/dfflibmap_abc_liberty.png)  
 
 ### 3.3.1. Optimizations
-By this time we have already noticed that our behavioural description (RTL design) goes through certain optimizations. As an example from our previousls discussed design multiple_modules.v, the sub_module2 which synthesized to be an OR gate but ended up being somethig diffrent. It has been mapped to a cell- 'sky130_fd_sc_hd__lpflow_inputiso1p_1'. These optimizations are performed by the synthesis tool minimizing area, power consumption etc. in perspective.  
+By this time we have already noticed that our behavioural description (RTL design) goes through optimizations. As an example from our previously discussed design- multiple_modules.v, the sub_module2 which synthesized to be an OR gate but ended up being somethig diffrent. It has been mapped to a cell- 'sky130_fd_sc_hd__lpflow_inputiso1p_1' by Yosys from the Liberty. These optimizations are performed by the synthesis tool minimizing area, power consumption etc. in perspective.  
 ![](assets/optimization_muliple_modules_1.png)  
-
-
-Note: Some Yosys commands
-    # read rtl design 
-    read_verilog good_mux.v
-
-    # generic synthesis
-    synth -top good_mux
-
-    # read sky130 cell library
-    read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-
-    # generate netlist using sky130 cell library
-    abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
-
-**netlist is the translation of RTL design to gate-level design using the standard cells specified in the liberty file.**  
