@@ -166,27 +166,7 @@ Graphical view of flattened netlist is hown below.
 
 ## 3.3. Various Flop coding styles and optimization
 abc tool maps only the combinational logic cells from the liberty. It doesn't look for the register cells.  
-If the RTL design has sequential logic, dfflibmap pass has to be executed before abc pass. dfflibmap pass looks for the register cells in the Liberty and maps to the sequential logic from the synthesis. And then abc pass has to used to complete the mepping for combinatorial logic.  - [1. Introduction](#1-introduction)
-- [1. Introduction](#1-introduction)
-- [2. Day 1 - Introduction to Verilog RTL design and Synthesis](#2-day-1---introduction-to-verilog-rtl-design-and-synthesis)
-  - [2.1. Introduction to Simulation](#21-introduction-to-simulation)
-    - [2.1.1. Simulation results](#211-simulation-results)
-  - [2.2. Introduction to Synthesis](#22-introduction-to-synthesis)
-    - [2.2.1. Yosys synthesizer flow](#221-yosys-synthesizer-flow)
-      - [2.2.1.1. Read RTL design](#2211-read-rtl-design)
-      - [2.2.1.2. Generic synthesis](#2212-generic-synthesis)
-      - [2.2.1.3. Read Sky130 cell library](#2213-read-sky130-cell-library)
-      - [2.2.1.4. Generate netlist](#2214-generate-netlist)
-      - [2.2.1.5. Show](#2215-show)
-- [3. Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles](#3-day-2---timing-libs-hierarchical-vs-flat-synthesis-and-efficient-flop-coding-styles)
-  - [3.1. Timing libs](#31-timing-libs)
-    - [3.1.1. Sky130 Process Node](#311-sky130-process-node)
-    - [3.1.2. Introduction to standard cell library](#312-introduction-to-standard-cell-library)
-  - [3.2. Hierarchial synthesis vs Flat synthesis](#32-hierarchial-synthesis-vs-flat-synthesis)
-    - [3.2.1. Hierarchial synthesis](#321-hierarchial-synthesis)
-    - [3.2.2. Selective sub-module level synthesis](#322-selective-sub-module-level-synthesis)
-    - [3.2.3. Flat synthesis](#323-flat-synthesis)
-  - [3.3. Various Flop coding styles and optimization](#33-various-flop-coding-styles-and-optimization)
+If the RTL design has sequential logic, dfflibmap pass has to be executed before abc pass. dfflibmap pass looks for the register cells in the Liberty and maps to the sequential logic from the synthesis. And then abc pass has to used to complete the mepping for combinatorial logic.  
 ![](assets/dfflibmap.png)  
 ![](assets/dfflibmap_abc_liberty.png)  
 
