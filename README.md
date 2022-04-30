@@ -22,6 +22,7 @@ Table of Contents
     - [3.2.1. Hierarchial synthesis](#321-hierarchial-synthesis)
     - [3.2.2. Selective sub-module level synthesis](#322-selective-sub-module-level-synthesis)
     - [3.2.3. Flat synthesis](#323-flat-synthesis)
+  - [3.2. Various Flop coding styles and optimization](#32-various-flop-coding-styles-and-optimization)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -101,8 +102,16 @@ Create a graphviz DOT file for the selected part of the design and compile it to
 ### 3.1.1. Sky130 Process Node
 The SKY130 is a mature 180nm-130nm hybrid technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone! [source: https://github.com/google/skywater-pdk]  
 ### 3.1.2. Introduction to standard cell library
-As a part of SkyWater Open Source PDK, [multiple](https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html) standard digital cell libraries are provided that cover a range of different use cases [source: https://github.com/google/skywater-pdk].  
-In this workshop we will be using sky130_fd_sc_hd (high density) standard cell library to map our synthesized design with.  
+On the gate-level the target architecture is usually described by a “Liberty file”. The Liberty file format is an industry standard format that can be used to describe the behaviour and other properties of standard library cells. [source from The Liberty Library Modeling Standard: http://www.opensourceliberty.org/.]  
+As a part of SkyWater Open Source PDK, [multiple](https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html) standard digital cell libraries are provided that cover a range of different target architectures [source: https://github.com/google/skywater-pdk].  
+In this workshop we will be using sky130_fd_sc_hd (high density) standard cell library (target architecture) to map our synthesized design from Yosys.  
+Some trivial details of our Liberty file are shown below. Although a thorough look into it has to be given to understand its potenetial.  
+![Target Archtecture](assets/liberty.png)  
+Also let us have a look at some of the variants of 2-input AND cells from the Liberty library.  
+Different variants of and2 with specific cell descriptions can be seen.  
+![](assets/lib_and2_variants.png)  
+[sky130_fd_sc_hd__and2](https://antmicro-skywater-pdk-docs.readthedocs.io/en/test-submodules-in-rtd/contents/libraries/sky130_fd_sc_hd/cells/and2/README.html)  
+
 
 ## 3.2. Hierarchial synthesis vs Flat synthesis
 ### 3.2.1. Hierarchial synthesis
@@ -155,6 +164,7 @@ Please pay attantion to the interesting netlist generated.
 Graphical view of flattened netlist is hown below.  
 ![](assets/flat_multiple_modules_show.png)  
 
+## 3.2. Various Flop coding styles and optimization
 
 
 
