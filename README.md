@@ -24,11 +24,11 @@ Table of Contents
     - [3.2.3. Flat synthesis](#323-flat-synthesis)
   - [3.3. Various Flop coding styles and optimization](#33-various-flop-coding-styles-and-optimization)
     - [3.3.1. Optimizations](#331-optimizations)
-- [3. Day 3 - Combinational and Sequential optimizations](#3-day-3---combinational-and-sequential-optimizations)
-  - [3.1. Logic optimizations](#31-logic-optimizations)
-    - [3.1.1. Combinational Constant propogation](#311-combinational-constant-propogation)
-    - [3.1.1. Boolean logic optimization](#311-boolean-logic-optimization)
-    - [3.1. Sequential Constant propogation](#31-sequential-constant-propogation)
+- [4. Day 3 - Combinational and Sequential optimizations](#4-day-3---combinational-and-sequential-optimizations)
+  - [4.1. Logic optimizations](#41-logic-optimizations)
+    - [4.1.1. Combinational Constant propogation](#411-combinational-constant-propogation)
+    - [4.1.2. Boolean logic optimization](#412-boolean-logic-optimization)
+    - [4.1.3. Sequential Constant propogation](#413-sequential-constant-propogation)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -195,17 +195,17 @@ Now abc -liberty pass has to be run to complete the mapping of combination logic
 By this time we have already noticed that our behavioural description (RTL design) goes through optimizations. As an example from our previously discussed design- multiple_modules.v, the sub_module2 which synthesized to be an OR gate but ended up being somethig diffrent. It has been mapped to a cell- 'sky130_fd_sc_hd__lpflow_inputiso1p_1' by Yosys from the Liberty. These optimizations are performed by the synthesis tool minimizing area, power consumption etc. in perspective.  
 ![](assets/optimization_muliple_modules_1.png)  
 
-# 3. Day 3 - Combinational and Sequential optimizations
-## 3.1. Logic optimizations
+# 4. Day 3 - Combinational and Sequential optimizations
+## 4.1. Logic optimizations
 There two possible types of logic optimizations
 * &emsp; Constant propogation 
     * Direct optimization 
 * &emsp; Boolean logic optimization
     * Karnaugh Map
     * Quine McKluskey
-### 3.1.1. Combinational Constant propogation
+### 4.1.1. Combinational Constant propogation
 Constant Propagation is an optimization technique employed by synthesis tools to minimize hardware implementation. [source: https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm]  
-A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) where the autohor points out verilog parameters a nice example of conatant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
+A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) where the author points out verilog parameters a nice example of conatant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
 
     module DUT (
         in1, in2, out1, out2);
@@ -226,9 +226,9 @@ A very nice example for constant propogation optimization is shown [here](https:
         assign out2 = w_gate1 ^ w_gate2;
     endmodule
 
-### 3.1.1. Boolean logic optimization
+### 4.1.2. Boolean logic optimization
 
-### 3.1. Sequential Constant propogation
+### 4.1.3. Sequential Constant propogation
 The below example sequential circuit discussed in the lectures, is a nice example where the synthesis tool gets to optomize it out. As the d-input is always 1'b0, irrespective of there the Reset line is asserted or not, the output of the flip-flop always remains 0. This simplifying the circuit ot the boolean expression,
     (~(A.0)) => (~A)+(~0) => ~A+1 => 1    
 Hence the whole logic gets to be replaced by a contant 1.  
