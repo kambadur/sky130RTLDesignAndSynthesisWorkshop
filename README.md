@@ -165,7 +165,10 @@ Graphical view of flattened netlist is hown below.
 ![](assets/flat_multiple_modules_show.png)  
 
 ## 3.2. Various Flop coding styles and optimization
-
+abc tool maps only the cells pertaining to combinational logic is used to map to the logic.  
+To map register cells dfflibmap pass has to be used that looks for the register cell in the LIberty and maps the sequential logic from the synthesis. And then abc pass has to used to complete the mepping for combinatorial logic.    
+![](assets/dfflibmap.png)  
+![](assets/dfflibmap_abc_liberty.png)  
 
 
 Note: Some Yosys commands
