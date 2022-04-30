@@ -24,6 +24,9 @@ Table of Contents
     - [3.2.3. Flat synthesis](#323-flat-synthesis)
   - [3.3. Various Flop coding styles and optimization](#33-various-flop-coding-styles-and-optimization)
     - [3.3.1. Optimizations](#331-optimizations)
+- [3. Day 3 - Combinational and Sequential optimizations](#3-day-3---combinational-and-sequential-optimizations)
+  - [3.1. Comninational logic optimizations](#31-comninational-logic-optimizations)
+    - [3.1.1. Constant propogation](#311-constant-propogation)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -189,3 +192,35 @@ Now abc -liberty pass has to be run to complete the mapping of combination logic
 ### 3.3.1. Optimizations
 By this time we have already noticed that our behavioural description (RTL design) goes through optimizations. As an example from our previously discussed design- multiple_modules.v, the sub_module2 which synthesized to be an OR gate but ended up being somethig diffrent. It has been mapped to a cell- 'sky130_fd_sc_hd__lpflow_inputiso1p_1' by Yosys from the Liberty. These optimizations are performed by the synthesis tool minimizing area, power consumption etc. in perspective.  
 ![](assets/optimization_muliple_modules_1.png)  
+
+# 3. Day 3 - Combinational and Sequential optimizations
+## 3.1. Comninational logic optimizations
+There two possible types of logic optimizations
+* &emsp; Constant propogation 
+    * Direct optimization 
+* &emsp; Boolean logic optimization
+    * Karnaugh Map
+    * Quine McKluskey
+### 3.1.1. Constant propogation
+Constant Propagation is an optimization technique employed by synthesis tools to minimize hardware implementation. [source: https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm]  
+A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) where the autohor points out verilog parameters a nice example of conatant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
+
+    module DUT (
+        in1, in2, out1, out2);
+        // parameter declaration
+        parameter ENABLE = 0;
+        // ports
+        input in1, in2;
+        output out1, out2;
+        // wires
+        wire w_gate1, w_gate2;
+
+        // logic
+
+        assign w_gate1 = (ENABLE == 1) ? in1 : 1'b0;
+        assign w_gate2 = (ENABLE == 1) ? in2 : 1'b0;
+
+        assign out1 = w_gate1 & w_gate2;
+        assign out2 = w_gate1 ^ w_gate2;
+    endmodule
+
