@@ -136,6 +136,10 @@ We can see that the synth command just looks at the specified sub_module1 alone 
 The generated synthesis output this time gives only the AND gate for the sub_module1 rtl.  
 ![](assets/synth_submodule1_out.png)  
 
+The graphical view clearly indicates the netist for synthesized sub_module1.  
+![](assets/show_submodule1.png)  
+
+
 ### 3.2.3. Flat synthesis
 yosys command flatten :"This pass flattens the design by replacing cells by their implementation. This pass is very similar to the 'techmap' pass. The only difference is that this pass is using the current design as mapping library.  
 Cells and/or modules with the 'keep_hierarchy' attribute set will not be flattened by this command." [source: http://yosyshq.net/yosys/cmd_flatten.html]  
