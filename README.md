@@ -29,6 +29,9 @@ Table of Contents
     - [4.1.1. Combinational Constant propogation](#411-combinational-constant-propogation)
     - [4.1.2. Boolean logic optimization](#412-boolean-logic-optimization)
     - [4.1.3. Sequential Constant propogation](#413-sequential-constant-propogation)
+  - [4.1. Logic optimizations in Yosys](#41-logic-optimizations-in-yosys)
+    - [Optimization design example 1](#optimization-design-example-1)
+    - [Optimization design example 2](#optimization-design-example-2)
 
 # 1. Introduction
 This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -233,5 +236,30 @@ The below sequential circuit discussed in the lectures, is a nice example where 
     (~(A.0)) => (~A)+(~0) => ~A+1 => 1    
 Hence the whole logic gets to be replaced by a contant 1.  
 ![](assets/dff.png)  
+
+## 4.1. Logic optimizations in Yosys
+Let us take a look at example designs- 'opt_check1.v', and 'opt_check3.v'. Lets us see how yosys optimizes these designs.  
+### Optimization design example 1
+
+### Optimization design example 2
+'opt_check3.v'
+![](assets/opt_check3_rtl.png)  
+schematic arrived from RTL should look as below:  
+![](assets/opt_check3.png)  
+When this design passes through the sysnthesis tool, it undergoes optimizations from area and power consumption perspective. Although it has to be noted that the beauty of optimization shall not be easily evident with simple designs (like the one we are discussing). This should more evident and appreciating if we are synthesising multile verilog files representing a CPU architecture.  
+
+It can be seen that Yosys optimized it to an ANDNOT and NOT gates.  
+![](assets/opt_cehck3_synth.png)  
+![](assets/opt_cehck3_synth_view.png)  
+
+abc pass find the right combinations logic cell from the Liberty to map it to the synthesized logic.  
+![](assets/opt_check3_abc.png)  
+![](assets/opt_check3_abc_view.png)  
+
+Also we learned about a Yosys command: 
+
+    opt_clean -purge  
+
+This command clean out the design by removing any unused wires and cells. It is usefull to call this after the design as gone through all the passes that do the actual work. Due to extremely simplistic design that we are working on, we will not be able to appreciate its use.  
 
 
