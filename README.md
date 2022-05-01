@@ -273,5 +273,6 @@ We can see we just have a flip-flop mapped to our logic.
 ![](assets/dff_const1_dfflibmap.png)  
 
 More importantly we need to run abc pass to map the architecture specific cell to our logic. As we already understood, this step can bring extra combinational logic to our design as there may be all the flavours of target realizable registers available.  
+![](assets/dff_const1_abc.png)  
 ![](assets/dff_const1_abc_show.png)  
 
