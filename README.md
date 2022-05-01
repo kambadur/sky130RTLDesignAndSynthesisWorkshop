@@ -240,7 +240,7 @@ Hence the whole logic gets to be replaced by a contant 1.
 ## 4.2. Logic optimizations in Yosys
 Let us take a look at example designs- 'opt_check3.v' for combinatorial logic and 'dff_const1.v' for sequential logic designs.  
 ### 4.2.1. Optimization design example 2
-'opt_check3.v'
+'opt_check3.v'  
 ![](assets/opt_check3_rtl.png)  
 schematic arrived from RTL should look as below:  
 ![](assets/opt_check3.png)  
