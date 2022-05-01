@@ -30,7 +30,7 @@ Table of Contents
     - [4.1.2. Boolean logic optimization](#412-boolean-logic-optimization)
     - [4.1.3. Sequential Constant propogation](#413-sequential-constant-propogation)
   - [4.2. Logic optimizations in Yosys](#42-logic-optimizations-in-yosys)
-    - [4.2.1. Optimization design example 1](#421-optimization-design-example-1)
+    - [4.2.1. Optimization design example 2](#421-optimization-design-example-2)
     - [4.2.2. Optimization design example 2](#422-optimization-design-example-2)
 
 # 1. Introduction
@@ -238,10 +238,8 @@ Hence the whole logic gets to be replaced by a contant 1.
 ![](assets/dff.png)  
 
 ## 4.2. Logic optimizations in Yosys
-Let us take a look at example designs- 'opt_check1.v', and 'opt_check3.v'. Lets us see how yosys optimizes these designs.  
-### 4.2.1. Optimization design example 1
-
-### 4.2.2. Optimization design example 2
+Let us take a look at example designs- 'opt_check3.v' for combinatorial logic and 'dff_const1.v' for sequential logic designs.  
+### 4.2.1. Optimization design example 2
 'opt_check3.v'
 ![](assets/opt_check3_rtl.png)  
 schematic arrived from RTL should look as below:  
@@ -262,4 +260,18 @@ Also we learned about a Yosys command:
 
 This command cleans the design by removing any unused wires and cells. It is usefull to call this after the design as gone through all the passes that do the actual work. Due to extremely simplistic design that we are working on, we will not be able to appreciate its use.  
 
+### 4.2.2. Optimization design example 2
+Similarly this shall be extended to sequential logic as well. This example design represents a asynchronous reset d-type flip flop.  
+![](assets/dff_const1_rtl.png)  
+
+running synth -top  
+![](assets/dff_const1_synth_out.png)  
+![](assets/dff_const1_synth_view.png)  
+
+dfflibmap -liberty ..  
+We can see we just have a flip-flop mapped to our logic.  
+![](assets/dff_const1_dfflibmap.png)  
+
+More importantly we need to run abc pass to map the architecture specific cell to our logic. As we already understood, this step can bring extra combinational logic to our design as there may be all the flavours of target realizable registers available.  
+![](assets/dff_const1_abc_show.png)  
 
