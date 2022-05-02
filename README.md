@@ -45,9 +45,9 @@ Table of Contents
   - [6.2. Procedural case statement](#62-procedural-case-statement)
   - [6.3. Verilog for loop](#63-verilog-for-loop)
   - [6.4. Verilog generate](#64-verilog-generate)
-- [Consolidation](#consolidation)
-- [7. Note of thanks](#7-note-of-thanks)
-- [8. Bibliography](#8-bibliography)
+- [7. Consolidation](#7-consolidation)
+- [8. Note of thanks](#8-note-of-thanks)
+- [9. Bibliography](#9-bibliography)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -476,14 +476,14 @@ module fa(input a, b, cin,
 &emsp;assign cout = (a&b) | (b&cin) | (a&cin);  
 endmodule
 
-# Consolidation 
+# 7. Consolidation 
 One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines in using Verilog for RTL design will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
-# 7. Note of thanks
+# 8. Note of thanks
 I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. As well I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
 
 
-# 8. Bibliography
+# 9. Bibliography
 [1] Icarus Verilog:     http://iverilog.icarus.com/  
 [2] GTKWave:            http://gtkwave.sourceforge.net/  
 [3] Yosys:              http://bygone.clairexen.net/yosys/  
