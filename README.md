@@ -40,6 +40,9 @@ Table of Contents
     - [5.1.1. Missing sensitivity list](#511-missing-sensitivity-list)
     - [5.1.2. Gate Level Simulation](#512-gate-level-simulation)
     - [5.1.3. Blocking vs Non-blocking assignments](#513-blocking-vs-non-blocking-assignments)
+- [Day 5 - Verilog: if, case, for loop and for generate](#day-5---verilog-if-case-for-loop-and-for-generate)
+  - [Procedural if statement](#procedural-if-statement)
+  - [Procedural case statement](#procedural-case-statement)
 - [6. Bibliography](#6-bibliography)
 - [7. Thank you](#7-thank-you)
 
@@ -387,6 +390,25 @@ The synthesis output does not have any logic cells due to the presence of an inf
 ![](assets/blocking_caveat_synth_nolatches.png)  
 This is a way of controlling the synthesis and debugging your design.  
 
+# Day 5 - Verilog: if, case, for loop and for generate
+## Procedural if statement
+if statement is equivalent to using a continuous assignment with a conditional operator,  
+    assign out = (condition) ? a : b;  
+
+However, the procedural if provides new ways to make mistakes.  
+
+    always @(*) begin  
+    if (condition) begin  
+        out = x;  
+    end  
+    else begin  
+        out = y;  
+    end  
+end  
+This circuit is combinational only if 'out' is always assigned. Otherwise it leads to inferred latches in the design[11].  
+
+## Procedural case statement
+
 
 # 6. Bibliography
 [1] Icarus Verilog:     http://iverilog.icarus.com/  
@@ -399,7 +421,8 @@ This is a way of controlling the synthesis and debugging your design.
 [8] Yosys manual: https://raw.githubusercontent.com/wiki/jospicant/IceStudio/yosys_manual.pdf  
 [9] https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm  
 [10] https://www.nandland.com/  
-[11] All the source files mentioned in this report are from VSD's GitHub repository: https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop  
+[11] https://hdlbits.01xz.net/wiki/Main_Page  
+[12] All the source files mentioned in this report are from VSD's GitHub repository: https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop  
 
 # 7. Thank you
 I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
