@@ -477,7 +477,7 @@ endmodule
 
 Specifying this design either by schematic entry or by other means would otherwise be impossible and prone to erros.  
 # 7. Key Takeaway 
-One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines in using Verilog for RTL design will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potential has to be understood, explored and to be made use of. As discussed, GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
+One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines in using Verilog for RTL design will have serious implications. Always the design has to be properly simulated and tested for its desired output(s). The synthesiser should not be taken for granted. Its potential has to be understood, explored and to be made use of. As discussed, GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 # 8. Note of thanks
 I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. Also I would like to sincerely thank Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
