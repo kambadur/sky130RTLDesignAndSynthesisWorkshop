@@ -34,6 +34,7 @@ Table of Contents
   - [4.2. Logic optimizations in Yosys](#42-logic-optimizations-in-yosys)
     - [4.2.1. Combinationals optimization design example 1](#421-combinationals-optimization-design-example-1)
     - [4.2.2. Sequential optimization design example 2](#422-sequential-optimization-design-example-2)
+    - [4.2.2. Sequential optimization design example 3](#422-sequential-optimization-design-example-3)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -274,6 +275,7 @@ before opt_clean
 ![](assets/before_opt_clean.png)  
 after opt_clean  
 ![](assets/after_opt_clean.png)  
+
 ### 4.2.2. Sequential optimization design example 2
 In this example design- 'dff_const2.v', a asynchronous reset d-type flip flop is used. The data input is always tied to 1. The positive edge reset asserts the output. Let us see how he synthesiszer tries to realize it.  
 ![](assets/dff_const2_rtl.png)  
@@ -281,6 +283,7 @@ In this example design- 'dff_const2.v', a asynchronous reset d-type flip flop is
 passing through synthesiszer, dfflibmap and abd, gives us the below logical circuit relaization. We can see that there is no flip-flop anymore. It has been optimized by the synthesiszer as there is no need for it. Irrespective of reset state, the output always remains at 1'b1.    
 ![](assets/dff_const2_abc_show.png)  
 
+### 4.2.2. Sequential optimization design example 3
 In the below example design- 'dff_const1.v', unlike above, posedge reset deasserts the output. The input data line is always connected to 1'b1. Let us see how he synthesiszer tries to realize it.  
 ![](assets/dff_const1_rtl.png)  
 
