@@ -448,7 +448,7 @@ We can clearly see that such features help a lot in minimizing the errors while 
 ## 6.4. Verilog generate
 Conditional module instantiations is a major benifit obtainable with generate in verilog. This can work with verilog parameters.  
 Again we take the problem statement from HDLBits and write our verilog code to realize the solution.  
-Requirement: Create a 100-bit binary ripple-carry adder by instantiating 100 full adders. The adder adds two 100-bit numbers and a carry-in to produce a 100-bit sum and carry out. To encourage you to actually instantiate full adders, also output the carry-out from each full adder in the ripple-carry adder. cout[99] is the final carry-out from the last full adder, and is the carry-out you usually see.
+Requirement: Create a 100-bit binary ripple-carry adder by instantiating 100 full adders. The adder adds two 100-bit numbers and a carry-in to produce a 100-bit sum and carry out. To encourage you to actually instantiate full adders, also output the carry-out from each full adder in the ripple-carry adder. cout[99] is the final carry-out from the last full adder, and is the carry-out you usually see.  
 Solution:  
 
 module top_module(  
@@ -457,7 +457,7 @@ module top_module(
 &emsp;output [99:0] cout,  
 &emsp;output [99:0] sum  
 );  
-// Instantiate 1-bit full adder
+// Instantiate 1-bit full adder  
 &emsp;fa fa0(.a(a[0]), .b(b[0]), .cin(cin), .s(sum[0]), .cout(cout[0]));  
 &emsp;genvar i;  
 &emsp;generate  
