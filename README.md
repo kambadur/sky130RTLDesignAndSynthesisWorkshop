@@ -421,7 +421,7 @@ In the below example design of another 'bad_case.v', we have a contention with 3
 When sel[1] gets asserted, both the last two cases gets executed. Unless intended, this has to avoided.   
 
 ## 6.3. Verilog for loop
-for loop is used to replicate hardware logic in verilog [13]. The idea behind for loop is to iterate a set of statement inside a loop till a given condition is met.  
+for loop is used to replicate hardware logic in verilog [13]. The idea behind for loop is to iterate a set of statements inside a loop till a given condition is met.  
 
     for(<loop var init>; <stop condition>; <increment/decrement loop var>) begin  
         statements;
