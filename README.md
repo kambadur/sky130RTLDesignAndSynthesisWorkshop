@@ -356,7 +356,7 @@ They are blocking assignments. The second line is only allowed to be executed af
      b <= a;
      c <= 1;  
 
-
+Let us investigate this example design- 'blocking_caveat.v'
 
 # 6. Bibliography
 [1] Icarus Verilog:     http://iverilog.icarus.com/  
@@ -368,7 +368,8 @@ They are blocking assignments. The second line is only allowed to be executed af
 [7] Target architectures: https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html  
 [8] Yosys manual: https://raw.githubusercontent.com/wiki/jospicant/IceStudio/yosys_manual.pdf  
 [9] https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm  
-[10] https://www.nandland.com/
+[10] https://www.nandland.com/  
+[11] All the source files mentioned in this report can be found at VSD's GitHub repository: https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop  
 
 # 7. Thank you
 I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
