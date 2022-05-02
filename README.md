@@ -26,16 +26,17 @@ Table of Contents
     - [3.3.1. Optimizations](#331-optimizations)
 - [4. Day 3 - Combinational and Sequential optimizations](#4-day-3---combinational-and-sequential-optimizations)
   - [4.1. Logic optimizations](#41-logic-optimizations)
-    - [4.1.1. Combinational Constant propogation](#411-combinational-constant-propogation)
-    - [4.1.2. Boolean logic optimization](#412-boolean-logic-optimization)
-    - [4.1.3. Sequential Constant propogation](#413-sequential-constant-propogation)
+    - [4.1.1. Combinational logic optimizations](#411-combinational-logic-optimizations)
+      - [4.1.1.1. Constant propogation](#4111-constant-propogation)
+      - [4.1.1.2. Boolean logic optimization](#4112-boolean-logic-optimization)
+    - [4.1.2. Sequential logic optimizations](#412-sequential-logic-optimizations)
+      - [4.1.2.1. Constant propogation](#4121-constant-propogation)
   - [4.2. Logic optimizations in Yosys](#42-logic-optimizations-in-yosys)
-    - [4.2.1. Optimization design example 2](#421-optimization-design-example-2)
+    - [4.2.1. Optimization design example 1](#421-optimization-design-example-1)
     - [4.2.2. Optimization design example 2](#422-optimization-design-example-2)
 
 # 1. Introduction
-This is a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon toolchains involving iVerilog, GTKWave, Yosys with Sky130 technology.  
-This report is written as a part of final submission to summarize the 5-day journey through the workshop.
+This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
 
 # 2. Day 1 - Introduction to Verilog RTL design and Synthesis
 ## 2.1. Introduction to Simulation
@@ -200,15 +201,24 @@ By this time we have already noticed that our behavioural description (RTL desig
 
 # 4. Day 3 - Combinational and Sequential optimizations
 ## 4.1. Logic optimizations
-There two possible types of logic optimizations
-* &emsp; Constant propogation 
+There following types of logic optimizations are some of the optimization techniques were discussed.
+* Combination logic optimizations
+  * &emsp; Constant propogation 
     * Direct optimization 
-* &emsp; Boolean logic optimization
+  * &emsp; Boolean logic optimization
     * Karnaugh Map
     * Quine McKluskey
-### 4.1.1. Combinational Constant propogation
+
+* Sequrntioal logic optimizations
+  * &emsp; Constant propogation  
+  * &emsp; Advanced optimizations [Not covered in labs]
+    * State optimization
+    * Retiming
+    * Sequential logic cloning (Floorplan aware synthesis)  
+### 4.1.1. Combinational logic optimizations
+#### 4.1.1.1. Constant propogation
 Constant Propagation is an optimization technique employed by synthesis tools to minimize hardware implementation. [source: https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm]  
-A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) where the author points out verilog parameters a nice example of conatant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
+A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) where the author points out verilog parameters a nice example of constant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
 
     module DUT (
         in1, in2, out1, out2);
@@ -229,9 +239,10 @@ A very nice example for constant propogation optimization is shown [here](https:
         assign out2 = w_gate1 ^ w_gate2;
     endmodule
 
-### 4.1.2. Boolean logic optimization
+#### 4.1.1.2. Boolean logic optimization
 
-### 4.1.3. Sequential Constant propogation
+### 4.1.2. Sequential logic optimizations
+#### 4.1.2.1. Constant propogation
 The below sequential circuit discussed in the lectures, is a nice example where the synthesis tool gets to optomize it out. As the d-input is always 1'b0, irrespective of whether the Reset line is asserted or not, the output of the flip-flop always remains 0. This simplifying the circuit ot the boolean expression,
     (~(A.0)) => (~A)+(~0) => ~A+1 => 1    
 Hence the whole logic gets to be replaced by a contant 1.  
@@ -239,12 +250,12 @@ Hence the whole logic gets to be replaced by a contant 1.
 
 ## 4.2. Logic optimizations in Yosys
 Let us take a look at example designs- 'opt_check3.v' for combinatorial logic and 'dff_const1.v' for sequential logic designs.  
-### 4.2.1. Optimization design example 2
+### 4.2.1. Optimization design example 1
 'opt_check3.v'  
 ![](assets/opt_check3_rtl.png)  
 schematic arrived from RTL should look as below:  
 ![](assets/opt_check3.png)  
-When this design passes through the sysnthesis tool, it undergoes optimizations from area and power consumption perspective. Although it has to be noted that the beauty of optimization shall not be easily evident with simple designs (like the one we are discussing). This should more evident and appreciating if we are synthesising multile verilog files representing a CPU architecture.  
+When this design passes through the sysnthesis tool, it undergoes optimizations from area and power consumption perspective. Although it has to be noted that the beauty of optimization shall not be easily evident with simple designs (like the one we are discussing). This should more evident and appreciating if we are synthesising multiple verilog files representing a CPU architecture.  
 
 It can be seen that Yosys optimized it to an ANDNOT and NOT gates.  
 ![](assets/opt_cehck3_synth.png)  
