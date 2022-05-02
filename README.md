@@ -45,7 +45,7 @@ Table of Contents
   - [6.2. Procedural case statement](#62-procedural-case-statement)
   - [6.3. Verilog for loop](#63-verilog-for-loop)
   - [6.4. Verilog generate](#64-verilog-generate)
-    - [6.4.1. Consolidation](#641-consolidation)
+- [Consolidation](#consolidation)
 - [7. Note of thanks](#7-note-of-thanks)
 - [8. Bibliography](#8-bibliography)
 
@@ -476,8 +476,8 @@ module fa(input a, b, cin,
 &emsp;assign cout = (a&b) | (b&cin) | (a&cin);  
 endmodule
 
-### 6.4.1. Consolidation 
-One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
+# Consolidation 
+One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines in using Verilog for RTL design will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 # 7. Note of thanks
 I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. As well I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
