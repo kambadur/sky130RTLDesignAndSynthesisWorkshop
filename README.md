@@ -356,7 +356,37 @@ They are blocking assignments. The second line is only allowed to be executed af
      b <= a;
      c <= 1;  
 
-Let us investigate this example design- 'blocking_caveat.v'
+Let us investigate this example design- 'blocking_caveat.v'. 
+![](assets/blocking_caveat_rtl.png)  
+It can be seen that blocking assignemnt statements have been used inside always block for a combinational logic.  
+Let us run the simulation and see the results.  
+![](assets/blocking_caveat_sim_gtkwave.png)  
+It can clearly be seen at the indicated timestamp that the output is latched to the past value of (x = a|b) is getting ANDed with the current value of input c. This is clear indication of a latch inferred in the design. This is clearly not what we wanted to design. Inferred latches unless expected (for example, a basic counter) are not to avoided in a design.  
+
+Let us now run the synthesis and see what happens.  
+![](assets/blocking_caveat_synth_abc_gtkwave.png)  
+We can clearly see that the synthesis tool realized our logic as we expected but not as we specified. This is clearly a Simulation-Synthesis Mismatch.  
+
+Note:  
+It can be seen that the synthesizer doesn't complain about inferred latches. If we clear that our design does not need OR should not have inferred latches, this compiler switch shall be of help.  
+
+    read_verilog -nolatches 
+
+Yosys documentation[3] says:  
+    -nolatches
+        usually latches are synthesized into logic loops
+        this option prohibits this and sets the output to 'x'
+        in what would be the latches hold condition
+
+        this behavior can also be achieved by setting the
+        'nolatches' attribute on the respective module or
+        always block.
+
+Let us just try to impose this and see the outcome.  
+The synthesis output does not have any logic cells due to the presence of an inferred latch in the design.  
+![](assets/blocking_caveat_synth_nolatches.png)  
+This is a way of controlling the synthesis and debugging your design.  
+
 
 # 6. Bibliography
 [1] Icarus Verilog:     http://iverilog.icarus.com/  
