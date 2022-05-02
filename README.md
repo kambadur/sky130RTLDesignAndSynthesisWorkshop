@@ -423,7 +423,7 @@ One has to be very careful in writng the behavioral specification in verilog. No
 
 
 # 7. Note of thanks
-I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
+I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. As well I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
 
 
 # 8. Bibliography
