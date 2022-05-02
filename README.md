@@ -318,7 +318,27 @@ In the following example design- 'bad_mux.v'. From the rtl design we wanted to h
 This can be an example for missing sensitivity list and also non-standard verilog coding.  
 To understand this let us try to synthesisze this design and see if Yosys has anything to say about it.  
 ![](assets/compiler_warning_latch.png)  
-Clearly the synthesiser warns us about a possible latch in the design. These kinds of warning have to be taken very seriosly and fixed at the earliest possible phase of the design. Letting out such bugs leads to serious implications once the system starts to grow and in the further phase of the system development.  
-Assuming that this warning is unfortunately ignored and we proceed with the further steps to synthesis the design.  
+Clearly the synthesiser warns us about a possible latch in the design. These kind of warnings have to be taken very seriosly and fixed at the earliest possible phase of the design. Letting out such bugs lead to serious implications once the system starts to grow and in the further phase of the system development.  
+Assuming that this warning is unfortunately ignored and we proceed with the further steps to synthesis the design.  Lets us see what happens.  
+Surprisingly, the synthesiszer synthesises the design as we expected but not what we specified. This is already a Simulation- Synthesis mismatch.  
+![](assets/bad_mux_snth.png)  
+![](assets/bad_mux_abc.png)  
+![](assets/bad_mux_abc_show.png)  
+
+Lets us write the netlist and perform GLS.
+Before we actually look at GLS output, let us see what GLS is.  
+GLS stands for **Gate Level Simulation**. Till now we have been doing simulation on our RTL design which helped us to verify the behaviour/funtion of our logic. On similar grounds GLS helps us perform behavioral/functonal verification of our synthesized design.  
+GLS is a very important phase of system development as it helps t fix design errors quite early.  
+The follwoing iverilog commnds helps to perfom GLS.  
+    
+    iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_net.v tb_bad_mux.v
+    ./a.out
+    gtkwave tb_bad_mux.vcd
+
+![](assets/bad_mux_gls_view.png)  
+It can clearly be seen that synthesis realises the logic as we expected but not as we specified. There is a clear and significant distiction between our simulation results and our synthesis results. **This is Simulation - Synthesis Mismatch, which needs to be avoided at all costs.**  
+
+
+
 
 
