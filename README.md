@@ -40,12 +40,12 @@ Table of Contents
     - [5.1.1. Missing sensitivity list](#511-missing-sensitivity-list)
     - [5.1.2. Gate Level Simulation](#512-gate-level-simulation)
     - [5.1.3. Blocking vs Non-blocking assignments](#513-blocking-vs-non-blocking-assignments)
-- [Day 5 - Verilog: if, case, for loop and for generate](#day-5---verilog-if-case-for-loop-and-for-generate)
-  - [Procedural if statement](#procedural-if-statement)
-  - [Procedural case statement](#procedural-case-statement)
-    - [Consolidation](#consolidation)
-- [6. Bibliography](#6-bibliography)
-- [7. Thank you](#7-thank-you)
+- [6. Day 5 - Verilog: if, case, for loop and for generate](#6-day-5---verilog-if-case-for-loop-and-for-generate)
+  - [6.1. Procedural if statement](#61-procedural-if-statement)
+  - [6.2. Procedural case statement](#62-procedural-case-statement)
+    - [6.2.1. Consolidation](#621-consolidation)
+- [7. Note of thanks](#7-note-of-thanks)
+- [8. Bibliography](#8-bibliography)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -391,8 +391,8 @@ The synthesis output does not have any logic cells due to the presence of an inf
 ![](assets/blocking_caveat_synth_nolatches.png)  
 This is a way of controlling the synthesis and debugging your design.  
 
-# Day 5 - Verilog: if, case, for loop and for generate
-## Procedural if statement
+# 6. Day 5 - Verilog: if, case, for loop and for generate
+## 6.1. Procedural if statement
 if statement is equivalent to using a continuous assignment with a conditional operator,  
     assign out = (condition) ? a : b;  
 
@@ -408,7 +408,7 @@ However, the procedural if provides new ways to make mistakes.
 end  
 This circuit is combinational only if 'out' is always assigned. Otherwise it leads to inferred latches in the design[11].  
 
-## Procedural case statement
+## 6.2. Procedural case statement
 Case statements in Verilog are nearly equivalent to a sequence of if-elseif-else that compares one expression to a list of others. Its syntax and functionality differs from the switch statement in C. Case statements are more convenient than if statements if there are a large number of cases.[11]  
 
 One has to be careful about **partial assignments** in case statements though.  
@@ -418,11 +418,15 @@ In the below example design of another 'bad_case.v', we have a contention with 3
 ![](assets/bad_case_contention.png)  
 When sel[1] gets asserted, both the last two cases gets executed. Unless intended, this has to avoided.   
 
-### Consolidation 
+### 6.2.1. Consolidation 
 One has to be very careful in writng the behavioral specification in verilog. Not following the coding/scripting guidelines will have serios implication. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 
-# 6. Bibliography
+# 7. Note of thanks
+I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
+
+
+# 8. Bibliography
 [1] Icarus Verilog:     http://iverilog.icarus.com/  
 [2] GTKWave:            http://gtkwave.sourceforge.net/  
 [3] Yosys:              http://bygone.clairexen.net/yosys/  
@@ -435,6 +439,3 @@ One has to be very careful in writng the behavioral specification in verilog. No
 [10] https://www.nandland.com/  
 [11] https://hdlbits.01xz.net/wiki/Main_Page  
 [12] All the source files mentioned in this report are from VSD's GitHub repository: https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop  
-
-# 7. Thank you
-I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
