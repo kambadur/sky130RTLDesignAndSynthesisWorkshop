@@ -32,8 +32,8 @@ Table of Contents
     - [4.1.2. Sequential logic optimizations](#412-sequential-logic-optimizations)
       - [4.1.2.1. Constant propogation](#4121-constant-propogation)
   - [4.2. Logic optimizations in Yosys](#42-logic-optimizations-in-yosys)
-    - [4.2.1. Optimization design example 1](#421-optimization-design-example-1)
-    - [4.2.2. Optimization design example 2](#422-optimization-design-example-2)
+    - [4.2.1. Combinationals optimization design example 1](#421-combinationals-optimization-design-example-1)
+    - [4.2.2. Sequential optimization design example 2](#422-sequential-optimization-design-example-2)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -250,7 +250,7 @@ Hence the whole logic gets to be replaced by a contant 1.
 
 ## 4.2. Logic optimizations in Yosys
 Let us take a look at example designs- 'opt_check3.v' for combinatorial logic and 'dff_const1.v' for sequential logic designs.  
-### 4.2.1. Optimization design example 1
+### 4.2.1. Combinationals optimization design example 1
 'opt_check3.v'  
 ![](assets/opt_check3_rtl.png)  
 schematic arrived from RTL should look as below:  
@@ -269,10 +269,19 @@ Also we learned about a Yosys command:
 
     opt_clean -purge  
 
-This command cleans the design by removing any unused wires and cells. It is usefull to call this after the design as gone through all the passes that do the actual work. Due to extremely simplistic design that we are working on, we will not be able to appreciate its use.  
+This command cleans the design by removing any unused wires and cells. It is usefull to call this after the design as gone through all the passes that do the actual work. In the below counter example, we can see the usefulness of this pass. Due to extremely simplistic design that we are working on, we might not be able to appreciate its use. Nevertheless in complex designs this will be very useful.  
+before opt_clean  
+![](assets/before_opt_clean.png)  
+after opt_clean  
+![](assets/after_opt_clean.png)  
+### 4.2.2. Sequential optimization design example 2
+In this example design- 'dff_const2.v', a asynchronous reset d-type flip flop is used. The data input is always tied to 1. The positive edge reset asserts the output. Let us see how he synthesiszer tries to realize it.  
+![](assets/dff_const2_rtl.png)  
 
-### 4.2.2. Optimization design example 2
-Similarly this shall be extended to sequential logic as well. This example design represents a asynchronous reset d-type flip flop.  
+passing through synthesiszer, dfflibmap and abd, gives us the below logical circuit relaization. We can see that there is no flip-flop anymore. It has been optimized by the synthesiszer as there is no need for it. Irrespective of reset state, the output always remains at 1'b1.    
+![](assets/dff_const2_abc_show.png)  
+
+In the below example design- 'dff_const1.v', unlike above, posedge reset deasserts the output. The input data line is always connected to 1'b1. Let us see how he synthesiszer tries to realize it.  
 ![](assets/dff_const1_rtl.png)  
 
 running synth -top  
@@ -287,3 +296,4 @@ More importantly we need to run abc pass to map the architecture specific cell t
 ![](assets/dff_const1_abc.png)  
 ![](assets/dff_const1_abc_show.png)  
 
+We can see that the flip-flop stays and has not been removed in optimization which is correct.  
