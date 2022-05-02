@@ -419,7 +419,7 @@ In the below example design of another 'bad_case.v', we have a contention with 3
 When sel[1] gets asserted, both the last two cases gets executed. Unless intended, this has to avoided.   
 
 ### 6.2.1. Consolidation 
-One has to be very careful in writng the behavioral specification in verilog. Not following the coding/scripting guidelines will have serios implication. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
+One has to be very careful in writng the behavioral specification in verilog. Not following the coding/scripting guidelines will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 
 # 7. Note of thanks
