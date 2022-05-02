@@ -35,6 +35,9 @@ Table of Contents
     - [4.2.1. Combinationals optimization design example 1](#421-combinationals-optimization-design-example-1)
     - [4.2.2. Sequential optimization design example 2](#422-sequential-optimization-design-example-2)
     - [4.2.3. Sequential optimization design example 3](#423-sequential-optimization-design-example-3)
+- [Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch](#day-4---gls-blocking-vs-non-blocking-and-synthesis-simulation-mismatch)
+  - [GLS- Synthesis - Simulation Mismatch](#gls--synthesis---simulation-mismatch)
+    - [Missing sensitivity list](#missing-sensitivity-list)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -45,6 +48,7 @@ This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis us
 
 **Simulation**: RTL design is checked for adherence to its specification using simulation. This helps finding and fixing bugs in the RTL design in the early stages of design development. iVerilog gives the framework to achieve this.
 iVerilog in short to [Icarus Verilog](http://iverilog.icarus.com/) is an open source toolchain for simulation and synthesis. Although it is used only for simulation due to it's potential advantages Yosys brings as a synthesis tool (*more details in later parts*). iVerilog frameowrk requires the RTL desgin file and a test bench file for simulation.  
+Note: Simulation in iVerilog means Synthesiszing the test bench!  
 
 A test bench file specifies stimulus to the input ports of the RTL design. This way the designer could verify the design for every change at its input ports, the change in the output. 
 The simulation output of iVerilog can be taken as a value change dump ('.vcd') file that could then be visualized in GTKWave.  
@@ -300,3 +304,21 @@ More importantly we need to run abc pass to map the architecture specific cell t
 ![](assets/dff_const1_abc_show.png)  
 
 We can see that the flip-flop stays and has not been removed in optimization which is correct.  
+
+# Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
+## GLS- Synthesis - Simulation Mismatch
+Synthesis - Simulation mismatch arises due to the following reasons.  
+* &emsp;Missing sensitivity list
+* &emsp;Blocking vs Non-blocking assignments
+* &emsp;Non standard verilog coding
+
+### Missing sensitivity list
+In the following example design- 'bad_mux.v'. From the rtl design we wanted to have 2-1 MUX. But from simuation we can clearly see that it is acting like a latch.  
+![](assets/tb_bad_mux_vcd.png)  
+This can be an example for missing sensitivity list and also non-standard verilog coding.  
+To understand this let us try to synthesisze this design and see if Yosys has anything to say about it.  
+![](assets/compiler_warning_latch.png)  
+Clearly the synthesiser warns us about a possible latch in the design. These kinds of warning have to be taken very seriosly and fixed at the earliest possible phase of the design. Letting out such bugs leads to serious implications once the system starts to grow and in the further phase of the system development.  
+Assuming that this warning is unfortunately ignored and we proceed with the further steps to synthesis the design.  
+
+
