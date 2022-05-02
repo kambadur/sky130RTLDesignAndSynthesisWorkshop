@@ -356,7 +356,7 @@ They are blocking assignments. The second line is only allowed to be executed af
      b <= a;
      c <= 1;  
 
-Let us investigate this example design- 'blocking_caveat.v'. 
+Let us investigate this example design- 'blocking_caveat.v'.  
 ![](assets/blocking_caveat_rtl.png)  
 It can be seen that blocking assignemnt statements have been used inside always block for a combinational logic.  
 Let us run the simulation and see the results.  
