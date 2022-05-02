@@ -35,10 +35,13 @@ Table of Contents
     - [4.2.1. Combinationals optimization design example 1](#421-combinationals-optimization-design-example-1)
     - [4.2.2. Sequential optimization design example 2](#422-sequential-optimization-design-example-2)
     - [4.2.3. Sequential optimization design example 3](#423-sequential-optimization-design-example-3)
-- [Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch](#day-4---gls-blocking-vs-non-blocking-and-synthesis-simulation-mismatch)
-  - [GLS: Synthesis - Simulation Mismatch](#gls-synthesis---simulation-mismatch)
-    - [Missing sensitivity list](#missing-sensitivity-list)
-    - [Gate Level Simulation](#gate-level-simulation)
+- [5. Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch](#5-day-4---gls-blocking-vs-non-blocking-and-synthesis-simulation-mismatch)
+  - [5.1. GLS: Synthesis - Simulation Mismatch](#51-gls-synthesis---simulation-mismatch)
+    - [5.1.1. Missing sensitivity list](#511-missing-sensitivity-list)
+    - [5.1.2. Gate Level Simulation](#512-gate-level-simulation)
+    - [5.1.3. Blocking vs Non-blocking assignments](#513-blocking-vs-non-blocking-assignments)
+- [6. Bibliography](#6-bibliography)
+- [7. Thank you](#7-thank-you)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -48,12 +51,12 @@ This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis us
 **RTL design**: Register Transfer Level (RTL) is representation of a digital circuit at an abstract level. This abstract realization of a specification is achieved using HDLs like Verilog, VHDL etc in simple text form. Before the invention of RTL, digital engineers used to specify their desgins as schematic entry which could be tedious and error prone.  
 
 **Simulation**: RTL design is checked for adherence to its specification using simulation. This helps finding and fixing bugs in the RTL design in the early stages of design development. iVerilog gives the framework to achieve this.
-iVerilog in short to [Icarus Verilog](http://iverilog.icarus.com/) is an open source toolchain for simulation and synthesis. Although it is used only for simulation due to it's potential advantages Yosys brings as a synthesis tool (*more details in later parts*). iVerilog frameowrk requires the RTL desgin file and a test bench file for simulation.  
+iVerilog in short to Icarus Verilog [1] is an open source toolchain for simulation and synthesis. Although it is used only for simulation due to it's potential advantages Yosys brings as a synthesis tool (*more details in later parts*). iVerilog frameowrk requires the RTL desgin file and a test bench file for simulation.  
 Note: Simulation in iVerilog means Synthesiszing the test bench!  
 
 A test bench file specifies stimulus to the input ports of the RTL design. This way the designer could verify the design for every change at its input ports, the change in the output. 
-The simulation output of iVerilog can be taken as a value change dump ('.vcd') file that could then be visualized in GTKWave.  
-[GTKWave](http://gtkwave.sourceforge.net/) is an open source tool for visualizing the signal dumps in .vcd/.lxt formats.  
+The simulation output of iVerilog can be taken as a value change dump ('.vcd') file that could then be visualized in GTKWave [2].  
+GTKWave is an open source tool for visualizing the signal dumps in .vcd/.lxt formats.  
 
 The below two figures illustrates the simulation in iVerilog and post-processing in GTKWave.  
 Test bench file performs the below  
@@ -78,7 +81,7 @@ The workshop provided example RTL design for 1-bit two input mux ('good_mux.v') 
 ![](assets/iverilog_gtkwave_lab.png)
 
 ## 2.2. Introduction to Synthesis
-**Synthesis**: The RTL design description is translated into gate-level description by a synthesis tool. Very popular Open source synthesis tool [Yosys](http://bygone.clairexen.net/yosys/) is used for synthesis.  
+**Synthesis**: The RTL design description is translated into gate-level description by a synthesis tool. Very popular Open source synthesis tool Yosys [3] is used for synthesis.  
 The synthesis tool takes the RTL desgin and the cell library (liberty file) as inputs and translates the RTL into netlist.
 Hence the netlist is the gate-level representation of the specifiec logic desgin via Verilog HDL in RTL.  
 
@@ -102,7 +105,7 @@ read_liberty[options]: This command reads cells from liberty file as modules int
 ![](assets/read_liberty.png)
 
 #### 2.2.1.4. Generate netlist
-abc[options]: This pass uses the ABC tool [1] for technology mapping of yosys's internal gate library to a target architecture[].  
+abc[options]: This pass uses the ABC tool [4] for technology mapping of yosys's internal gate library to a target architecture[].  
 &emsp;-liberty <file>: generate netlists for the specified cell library (using the liberty file format).  
 &emsp;In our case 'sky130_fd_sc_hd__tt_025C_1v80.lib'.  
 *Note: When no target cell library is specified the Yosys standard cell library is loaded into ABC before the ABC script is executed.*  
@@ -116,10 +119,10 @@ Create a graphviz DOT file for the selected part of the design and compile it to
 # 3. Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles
 ## 3.1. Timing libs
 ### 3.1.1. Sky130 Process Node
-The SKY130 is a mature 180nm-130nm hybrid technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone! [source: https://github.com/google/skywater-pdk]  
+The SKY130 is a mature 180nm-130nm hybrid technology originally developed internally by Cypress Semiconductor before being spun out into SkyWater Technology and made accessible to general industry. SkyWater and Google’s collaboration is now making this technology accessible to everyone! [5]  
 ### 3.1.2. Introduction to standard cell library
-On the gate-level the target architecture is usually described by a “Liberty file”. The Liberty file format is an industry standard format that can be used to describe the behaviour and other properties of standard library cells. [source from The Liberty Library Modeling Standard: http://www.opensourceliberty.org/.]  
-As a part of SkyWater Open Source PDK, [multiple](https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html) standard digital cell libraries are provided that cover a range of different target architectures [source: https://github.com/google/skywater-pdk].  
+On the gate-level the target architecture is usually described by a “Liberty file”. The Liberty file format is an industry standard format that can be used to describe the behaviour and other properties of standard library cells. [6]  
+As a part of SkyWater Open Source PDK, multiple [7] standard digital cell libraries are provided that cover a range of different target architectures [5].  
 In this workshop we will be using sky130_fd_sc_hd (high density) standard cell library (target architecture) to map our synthesized design from Yosys.  
 Some trivial details of our Liberty file are shown below. Although a thorough look into it has to be given to understand its potenetial.  
 ![Target Archtecture](assets/liberty.png)  
@@ -191,7 +194,7 @@ First the register cells must be mapped to the registers that are available on t
 target architecture might not provide all variations of d-type flip-flops with positive and negative clock
 edge, high-active and low-active asynchronous set and/or reset, etc. Therefore the process of mapping the
 registers might add additional inverters to the design and thus it is important to map the register cells
-first. [source: [Yosys manual](https://raw.githubusercontent.com/wiki/jospicant/IceStudio/yosys_manual.pdf)]  
+first. [8]  
 
 Let us try to understand this with an example RTL design- 'dff_asyncres.v'.  
 Let us run synth -top on the design and take a look how it looks. We can see that it just represet a d-flip flop.  
@@ -224,7 +227,7 @@ There following types of logic optimizations are some of the optimization techni
 ### 4.1.1. Combinational logic optimizations
 #### 4.1.1.1. Constant propogation
 Constant Propagation is an optimization technique employed by synthesis tools to minimize hardware implementation. [source: https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm]  
-A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) where the author points out verilog parameters a nice example of constant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
+A very nice example for constant propogation optimization is shown [here](https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm) [9] where the author points out verilog parameters a nice example of constant propogation optimization. In the below example the author mentions that when the parameter ENABLE == 0, the complete // logic part gets optimized out by the synthesis tool and thus minimizing the hardware realized.  
 
     module DUT (
         in1, in2, out1, out2);
@@ -306,14 +309,14 @@ More importantly we need to run abc pass to map the architecture specific cell t
 
 We can see that the flip-flop stays and has not been removed in optimization which is correct.  
 
-# Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
-## GLS: Synthesis - Simulation Mismatch
+# 5. Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
+## 5.1. GLS: Synthesis - Simulation Mismatch
 Synthesis - Simulation mismatch arises due to the following reasons.  
 * &emsp;Missing sensitivity list
 * &emsp;Blocking vs Non-blocking assignments
 * &emsp;Non standard verilog coding
 
-### Missing sensitivity list
+### 5.1.1. Missing sensitivity list
 In the following example design- 'bad_mux.v'. From the rtl design we wanted to have 2-1 MUX. But from simuation we can clearly see that it is acting like a latch.  
 ![](assets/tb_bad_mux_vcd.png)  
 This can be an example for missing sensitivity list and also non-standard verilog coding.  
@@ -328,7 +331,7 @@ Surprisingly, the synthesiszer synthesises the design as we expected but not wha
 
 Lets us write the netlist and perform GLS.
 Before we actually look at GLS output, let us see what GLS is.  
-### Gate Level Simulation
+### 5.1.2. Gate Level Simulation
 GLS stands for **Gate Level Simulation**. Till now we have been doing simulation on our RTL design which helped us to verify the behaviour/funtion of our logic. On similar grounds GLS helps us perform behavioral/functonal verification of our synthesized design.  
 GLS is a very important phase of system development as it helps t fix design errors quite early.  
 The follwoing iverilog commnds helps to perfom GLS.  
@@ -340,7 +343,32 @@ The follwoing iverilog commnds helps to perfom GLS.
 ![](assets/bad_mux_gls_view.png)  
 It can clearly be seen that synthesis realises the logic as we expected but not as we specified. There is a clear and significant distiction between our simulation results and our synthesis results. **This is Simulation - Synthesis Mismatch, which needs to be avoided at all costs.**  
 
+### 5.1.3. Blocking vs Non-blocking assignments
+Blocking vs Non-blocking assignments also cause simulation-synthesis mismatch. Blocking vs Non-blocking assignment statements are used in 'always' blocks and special care needs to be take when using them. The main reason to use either Blocking or Nonblocking assignments is to generate either combinational or sequential logic[10].  
+
+    a = in[0];
+    b = a;
+    c = 1;  
+
+They are blocking assignments. The second line is only allowed to be executed after the first one is complete. In verilog, the logic can be specified to be executed concurrently unlike in common programming languages like C where one instruction exceutes after the other sequentially. Non-blocking assignment statements support us to specify concurrent executable logic.  
+
+     a <= in[0];
+     b <= a;
+     c <= 1;  
 
 
 
+# 6. Bibliography
+[1] Icarus Verilog:     http://iverilog.icarus.com/  
+[2] GTKWave:            http://gtkwave.sourceforge.net/  
+[3] Yosys:              http://bygone.clairexen.net/yosys/  
+[4] ABC tool:           http://people.eecs.berkeley.edu/~alanmi/abc/  
+[5] Skywater-PDK:       https://github.com/google/skywater-pdk  
+[6] The Liberty Library Modeling Standard: http://www.opensourceliberty.org/  
+[7] Target architectures: https://skywater-pdk.readthedocs.io/en/main/contents/libraries/foundry-provided.html  
+[8] Yosys manual: https://raw.githubusercontent.com/wiki/jospicant/IceStudio/yosys_manual.pdf  
+[9] https://www.fullchipdesign.com/verilog_synthesis_logic_digital_hardware.htm  
+[10]  nandland.com  
 
+# 7. Thank you
+I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. I would like to extend my appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and the fellow participants from the workshop all the best.  
