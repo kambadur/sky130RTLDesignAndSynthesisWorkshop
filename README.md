@@ -45,7 +45,7 @@ Table of Contents
   - [6.2. Procedural case statement](#62-procedural-case-statement)
   - [6.3. Verilog for loop](#63-verilog-for-loop)
   - [6.4. Verilog generate](#64-verilog-generate)
-- [7. Consolidation](#7-consolidation)
+- [7. Key Takeaway](#7-key-takeaway)
 - [8. Note of thanks](#8-note-of-thanks)
 - [9. Bibliography](#9-bibliography)
 
@@ -476,7 +476,7 @@ module fa(input a, b, cin,
 endmodule
 
 Specifying this design either by schematic entry or by other means would otherwise be impossible and prone to erros.  
-# 7. Consolidation 
+# 7. Key Takeaway 
 One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines in using Verilog for RTL design will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potential has to be understood, explored and to be made use of. As discussed, GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 # 8. Note of thanks
