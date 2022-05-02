@@ -43,9 +43,9 @@ Table of Contents
 - [6. Day 5 - Verilog: if, case, for loop and for generate](#6-day-5---verilog-if-case-for-loop-and-for-generate)
   - [6.1. Procedural if statement](#61-procedural-if-statement)
   - [6.2. Procedural case statement](#62-procedural-case-statement)
-  - [6.2. Verilog for loop](#62-verilog-for-loop)
-  - [Verilog generate](#verilog-generate)
-    - [6.2.1. Consolidation](#621-consolidation)
+  - [6.3. Verilog for loop](#63-verilog-for-loop)
+  - [6.4. Verilog generate](#64-verilog-generate)
+    - [6.4.1. Consolidation](#641-consolidation)
 - [7. Note of thanks](#7-note-of-thanks)
 - [8. Bibliography](#8-bibliography)
 
@@ -420,16 +420,17 @@ In the below example design of another 'bad_case.v', we have a contention with 3
 ![](assets/bad_case_contention.png)  
 When sel[1] gets asserted, both the last two cases gets executed. Unless intended, this has to avoided.   
 
-## 6.2. Verilog for loop
+## 6.3. Verilog for loop
 for loop is used to replicate hardware logic in verilog [13]. The idea behind for loop is to iterate a set of statement inside a loop till a given condition is met.  
 
     for(<loop var init>; <stop condition>; <increment/decrement loop var>) begin  
         statements;
     end  
 This example is taken from [HDLBits](https://hdlbits.01xz.net/wiki/Vector100r) to illustrate the use of for loop in verilog.  
+Let us take the problem statement from HDLBits and write our verilog code to realize this.  
 Requirement:  Given a 100-bit input vector [99:0], reverse its bit ordering.  
-
 Solution:  
+
 module top_module(  
 &emsp;input [99:0] in,  
 &emsp;output [99:0] out  
@@ -439,15 +440,43 @@ module top_module(
 &emsp;&emsp;&emsp;&emsp;out[i] = in[99-i];  
 &emsp;&emsp;end  
 &emsp;end  
-endmodule
-  
+endmodule  
+*Note: Only the problem statement is taken from HDLBits. The verilog code is written by me.*   
+
 We can clearly see that such features help a lot in minimizing the errors while specifying RTL and also make HDL code compact, readable and maintainable.  
 
-## Verilog generate
+## 6.4. Verilog generate
 Conditional module instantiations is a major benifit obtainable with generate in verilog. This can work with verilog parameters.  
+Again we take the problem statement from HDLBits and write our verilog code to realize the solution.  
+Requirement: Create a 100-bit binary ripple-carry adder by instantiating 100 full adders. The adder adds two 100-bit numbers and a carry-in to produce a 100-bit sum and carry out. To encourage you to actually instantiate full adders, also output the carry-out from each full adder in the ripple-carry adder. cout[99] is the final carry-out from the last full adder, and is the carry-out you usually see.
+Solution:  
 
+module top_module(  
+&emsp;input [99:0] a, b,  
+&emsp;input cin,  
+&emsp;output [99:0] cout,  
+&emsp;output [99:0] sum  
+);  
+// Instantiate 1-bit full adder
+&emsp;fa fa0(.a(a[0]), .b(b[0]), .cin(cin), .s(sum[0]), .cout(cout[0]));  
+&emsp;genvar i;  
+&emsp;generate  
+// $bits(a)$ return the number of bits needed to hold the variable that is passed. Here 100.  
+&emsp;&emsp;for(i=1; i<$bits(a); i++) begin: fad  
+&emsp;&emsp;fa fa1(.a(a[i]), .b(b[i]), .cin(cout[i-1]), .s(sum[i]), .cout(cout[i]));  
+&emsp;&emsp;end  
+&emsp;endgenerate  
+endmodule  
 
-### 6.2.1. Consolidation 
+// Module for 1-bit full adder
+module fa(input a, b, cin,  
+&emsp;&emsp;output s, cout  
+&emsp;&emsp;);  
+&emsp;assign s = a^b^cin;  
+&emsp;assign cout = (a&b) | (b&cin) | (a&cin);  
+endmodule
+
+### 6.4.1. Consolidation 
 One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 # 7. Note of thanks
