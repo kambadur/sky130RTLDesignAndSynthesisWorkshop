@@ -429,16 +429,16 @@ for loop is used to replicate hardware logic in verilog [13]. The idea behind fo
 This example is taken from [HDLBits](https://hdlbits.01xz.net/wiki/Vector100r) to illustrate the use of for loop in verilog.  
 Requirement:  Given a 100-bit input vector [99:0], reverse its bit ordering.  
 
-Solution:
+Solution:  
 module top_module(  
-    input [99:0] in,  
-    output [99:0] out  
+&emsp;input [99:0] in,  
+&emsp;output [99:0] out  
 );  
-    always @(*) begin  
-        for(int i=0; i<100; i++) begin  
-            out[i] = in[99-i];  
-            end  
-end  
+&emsp;always @(*) begin  
+&emsp;&emsp;for(int i=0; i<100; i++) begin  
+&emsp;&emsp;&emsp;&emsp;out[i] = in[99-i];  
+&emsp;&emsp;end  
+&emsp;end  
 endmodule
   
 We can clearly see that such features help a lot in minimizing the errors while specifying RTL and also make HDL code compact, readable and maintainable.  
