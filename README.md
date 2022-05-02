@@ -43,6 +43,7 @@ Table of Contents
 - [Day 5 - Verilog: if, case, for loop and for generate](#day-5---verilog-if-case-for-loop-and-for-generate)
   - [Procedural if statement](#procedural-if-statement)
   - [Procedural case statement](#procedural-case-statement)
+    - [Consolidation](#consolidation)
 - [6. Bibliography](#6-bibliography)
 - [7. Thank you](#7-thank-you)
 
@@ -408,6 +409,17 @@ end
 This circuit is combinational only if 'out' is always assigned. Otherwise it leads to inferred latches in the design[11].  
 
 ## Procedural case statement
+Case statements in Verilog are nearly equivalent to a sequence of if-elseif-else that compares one expression to a list of others. Its syntax and functionality differs from the switch statement in C. Case statements are more convenient than if statements if there are a large number of cases.[11]  
+
+One has to be careful about **partial assignments** in case statements though.  
+![](assets/bad_case_partial_assign.png)  
+Due to partial assignment in case 2'b11, it laeds to an inferred latch in the design. Output y2 is latched to whatever the previous value it used to have (either i1, i2, or i3 based on the case that appeared before). Unless intended, this has to avoided.   
+In the below example design of another 'bad_case.v', we have a contention with 3rd and 4th statements.  
+![](assets/bad_case_contention.png)  
+When sel[1] gets asserted, both the last two cases gets executed. Unless intended, this has to avoided.   
+
+### Consolidation 
+One has to be very careful in writng the behavioral specification in verilog. Not following the coding/scripting guidelines will have serios implication. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 
 # 6. Bibliography
