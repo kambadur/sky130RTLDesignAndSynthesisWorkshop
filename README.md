@@ -36,8 +36,9 @@ Table of Contents
     - [4.2.2. Sequential optimization design example 2](#422-sequential-optimization-design-example-2)
     - [4.2.3. Sequential optimization design example 3](#423-sequential-optimization-design-example-3)
 - [Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch](#day-4---gls-blocking-vs-non-blocking-and-synthesis-simulation-mismatch)
-  - [GLS- Synthesis - Simulation Mismatch](#gls--synthesis---simulation-mismatch)
+  - [GLS: Synthesis - Simulation Mismatch](#gls-synthesis---simulation-mismatch)
     - [Missing sensitivity list](#missing-sensitivity-list)
+    - [Gate Level Simulation](#gate-level-simulation)
 
 # 1. Introduction
 This is a report on a 5-day workshop from VSD-IAT on RTL design and synthesis using open source silicon tools involving iVerilog, GTKWave, Yosys with Sky130 technology.  
@@ -306,7 +307,7 @@ More importantly we need to run abc pass to map the architecture specific cell t
 We can see that the flip-flop stays and has not been removed in optimization which is correct.  
 
 # Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
-## GLS- Synthesis - Simulation Mismatch
+## GLS: Synthesis - Simulation Mismatch
 Synthesis - Simulation mismatch arises due to the following reasons.  
 * &emsp;Missing sensitivity list
 * &emsp;Blocking vs Non-blocking assignments
@@ -327,6 +328,7 @@ Surprisingly, the synthesiszer synthesises the design as we expected but not wha
 
 Lets us write the netlist and perform GLS.
 Before we actually look at GLS output, let us see what GLS is.  
+### Gate Level Simulation
 GLS stands for **Gate Level Simulation**. Till now we have been doing simulation on our RTL design which helped us to verify the behaviour/funtion of our logic. On similar grounds GLS helps us perform behavioral/functonal verification of our synthesized design.  
 GLS is a very important phase of system development as it helps t fix design errors quite early.  
 The follwoing iverilog commnds helps to perfom GLS.  
