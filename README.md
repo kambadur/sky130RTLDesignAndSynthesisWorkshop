@@ -441,7 +441,6 @@ module top_module(
 &emsp;&emsp;end  
 &emsp;end  
 endmodule  
-*Note: Only the problem statement is taken from HDLBits. The verilog code is written by me.*   
 
 We can clearly see that such features help a lot in minimizing the errors while specifying RTL and also make HDL code compact, readable and maintainable.  
 
