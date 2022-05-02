@@ -43,6 +43,8 @@ Table of Contents
 - [6. Day 5 - Verilog: if, case, for loop and for generate](#6-day-5---verilog-if-case-for-loop-and-for-generate)
   - [6.1. Procedural if statement](#61-procedural-if-statement)
   - [6.2. Procedural case statement](#62-procedural-case-statement)
+  - [6.2. Verilog for loop](#62-verilog-for-loop)
+  - [Verilog generate](#verilog-generate)
     - [6.2.1. Consolidation](#621-consolidation)
 - [7. Note of thanks](#7-note-of-thanks)
 - [8. Bibliography](#8-bibliography)
@@ -418,9 +420,35 @@ In the below example design of another 'bad_case.v', we have a contention with 3
 ![](assets/bad_case_contention.png)  
 When sel[1] gets asserted, both the last two cases gets executed. Unless intended, this has to avoided.   
 
-### 6.2.1. Consolidation 
-One has to be very careful in writng the behavioral specification in verilog. Not following the coding/scripting guidelines will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
+## 6.2. Verilog for loop
+for loop is used to replicate hardware logic in verilog [13]. The idea behind for loop is to iterate a set of statement inside a loop till a given condition is met.  
 
+    for(<loop var init>; <stop condition>; <increment/decrement loop var>) begin  
+        statements;
+    end  
+This example is taken from [HDLBits](https://hdlbits.01xz.net/wiki/Vector100r) to illustrate the use of for loop in verilog.  
+Requirement:  Given a 100-bit input vector [99:0], reverse its bit ordering.  
+
+Solution:
+module top_module(  
+    input [99:0] in,  
+    output [99:0] out  
+);  
+    always @(*) begin  
+        for(int i=0; i<100; i++) begin  
+            out[i] = in[99-i];  
+            end  
+end  
+endmodule
+  
+We can clearly see that such features help a lot in minimizing the errors while specifying RTL and also make HDL code compact, readable and maintainable.  
+
+## Verilog generate
+Conditional module instantiations is a major benifit obtainable with generate in verilog. This can work with verilog parameters.  
+
+
+### 6.2.1. Consolidation 
+One has to be very careful in writng the behavioral specification (RTL) in verilog. Not following the coding/scripting guidelines will have serious implications. Always the design has to be properly simulated and tested for its desired output. The synthesiser should not be taken for granted. Its potentail has to be explored and to be made use of. As discussed GLS simulation has to be performed and the results have to be verified against the RTL design simulation results.  
 
 # 7. Note of thanks
 I would like to extend my sincere thanks to the entire team at VSD for organising this workshop. As well I would like to extend my sincere thanks and appreciation to Mr. Shon Taware for his relenetless support. I would like to wish the entire VSD team and fellow participants from the workshop all the best.  
@@ -439,3 +467,5 @@ I would like to extend my sincere thanks to the entire team at VSD for organisin
 [10] https://www.nandland.com/  
 [11] https://hdlbits.01xz.net/wiki/Main_Page  
 [12] All the source files mentioned in this report are from VSD's GitHub repository: https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop  
+[13] https://www.chipverify.com  
+
